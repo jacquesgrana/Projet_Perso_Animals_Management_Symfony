@@ -18,7 +18,7 @@ class AnimalCategory
     #[ORM\Column(length: 128)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Animal::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Animal::class)]
     private Collection $animals;
 
     public function getId(): ?int
@@ -58,7 +58,7 @@ class AnimalCategory
     {
         if (!$this->animals->contains($animal)) {
             $this->animals->add($animal);
-            $animal->setType($this);
+            $animal->setCategory($this);
         }
 
         return $this;
@@ -68,8 +68,8 @@ class AnimalCategory
     {
         if ($this->animals->removeElement($animal)) {
             // set the owning side to null (unless already changed)
-            if ($animal->getType() === $this) {
-                $animal->setType(null);
+            if ($animal->getCategory() === $this) {
+                $animal->setCategory(null);
             }
         }
 

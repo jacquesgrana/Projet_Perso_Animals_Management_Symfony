@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <title>{% block title %}Gestion de mes animaux{% endblock %}</title>
+
         {% block stylesheets %}
         {% endblock %}
 
@@ -12,6 +12,25 @@
         {% endblock %}
     </head>
     <body>
+        <header class="header">
+        <h1 class="header-title">🐱🐶 Gestion de mes animaux 🐦🐟</h1>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> / pseudo : <span class="text-orange">{{ app.user.pseudo }}</span></p>
+        {% endif %}
+        <nav class="navbar">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <span><a href="{{ path('app_home') }}">Accueil</a></span>
+                    <span><a href="{{ path('app_logout') }}">Déconnexion</a></span>
+                {% else %}
+                    <span><a href="{{ path('app_login') }}">Connexion</a></span>
+                {% endif %}
+        </nav>
+    </header>
+    <main class="main">
         {% block body %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 / Gestion de mes Animaux</p>
+    </footer>
     </body>
 </html>

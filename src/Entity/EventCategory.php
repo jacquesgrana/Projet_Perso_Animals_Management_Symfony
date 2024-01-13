@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EventTypeRepository;
+use App\Repository\EventCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EventTypeRepository::class)]
-class EventType
+#[ORM\Entity(repositoryClass: EventCategoryRepository::class)]
+class EventCategory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class EventType
     #[ORM\Column(length: 128)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Event::class)]
     private Collection $events;
 
     public function __construct()
@@ -62,7 +62,7 @@ class EventType
     {
         if (!$this->events->contains($event)) {
             $this->events->add($event);
-            $event->setType($this);
+            $event->setCategory($this);
         }
 
         return $this;
@@ -72,8 +72,8 @@ class EventType
     {
         if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($event->getType() === $this) {
-                $event->setType(null);
+            if ($event->getCategory() === $this) {
+                $event->setCategory(null);
             }
         }
 

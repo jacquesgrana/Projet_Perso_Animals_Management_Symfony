@@ -30,7 +30,7 @@ class Event
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?EventType $type = null;
+    private ?EventCategory $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
@@ -108,14 +108,14 @@ class Event
         return $this;
     }
 
-    public function getType(): ?EventType
+    public function getCategory(): ?EventCategory
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?EventType $type): static
+    public function setCategory(?EventCategory $category): static
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="home-wrapper">
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <h2 class="home-title-top">Accueil</h2>
+    <a class="home-option" href="{{ path('app_animal_list') }}">Afficher mes Animaux</a>
+    <a class="home-option" href="{{ path('app_event_list') }}">Afficher mes évènements</a>
+{% else %}
+<h2 class="home-title-top">Veuillez vous connecter</h2>
+ {% endif %}
+</div>
+{% endblock %}

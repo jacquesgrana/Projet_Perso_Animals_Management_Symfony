@@ -1,0 +1,10 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Page non trouvée</h1>
+
+    <p>
+        La ressource est introuvable, <a href="{{ path('app_home') }}">Retour à l'Accueil</a>.
+    </p>
+{% endblock %}

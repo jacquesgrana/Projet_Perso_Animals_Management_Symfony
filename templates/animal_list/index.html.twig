@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnimalListController!{% endblock %}
+
+{% block body %}
+
+<div class="home-wrapper">
+
+   <h2 class="home-title-top">Liste de mes animaux</h2>
+
+   <table class="table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Commentaire</th>
+              <th>Date de naissance</th>
+              <th>Genre</th>
+              <th>Catégorie</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for animal in animals %}
+              <tr>
+                 <td>{{ animal.id }}</td>
+                 <td>{{ animal.name }}</td>
+                 <td>{{ animal.comment }}</td>
+                 <td>{{ animal.birth|date('d/m/Y') }}</td>
+                 <td>{{ animal.gender.name }}</td>
+                 <td>{{ animal.category.name }}</td>
+                 <td></td>
+              </tr>
+          {% else %}
+              <tr>
+                 <td colspan="7">Aucun animal trouvé.</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+
+</div>
+{% endblock %}

@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\EventType;
+use App\Entity\EventCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EventType>
+ * @extends ServiceEntityRepository<EventCategory>
  *
- * @method EventType|null find($id, $lockMode = null, $lockVersion = null)
- * @method EventType|null findOneBy(array $criteria, array $orderBy = null)
- * @method EventType[]    findAll()
- * @method EventType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EventCategory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EventCategory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EventCategory[]    findAll()
+ * @method EventCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EventTypeRepository extends ServiceEntityRepository
+class EventCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventType::class);
+        parent::__construct($registry, EventCategory::class);
     }
 
 //    /**
-//     * @return EventType[] Returns an array of EventType objects
+//     * @return EventCategory[] Returns an array of EventCategory objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class EventTypeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?EventType
+//    public function findOneBySomeField($value): ?EventCategory
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

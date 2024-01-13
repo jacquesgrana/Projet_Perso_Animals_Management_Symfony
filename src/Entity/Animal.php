@@ -31,7 +31,7 @@ class Animal
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?AnimalCategory $type = null;
+    private ?AnimalCategory $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?User $master = null;
@@ -93,14 +93,14 @@ class Animal
         return $this;
     }
 
-    public function getType(): ?AnimalType
+    public function getCategory(): ?AnimalCategory
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(?AnimalType $type): static
+    public function setCategory(?AnimalCategory $category): static
     {
-        $this->type = $type;
+        $this->$category = $category;
 
         return $this;
     }

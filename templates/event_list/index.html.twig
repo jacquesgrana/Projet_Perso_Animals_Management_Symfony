@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventListController!{% endblock %}
+
+{% block body %}
+<div class="home-wrapper">
+
+   <h2 class="home-title-top">Liste de mes évènements</h2>
+   <table class="table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Commentaire</th>
+
+              <th>Catégorie</th>
+              <th>Statut</th>
+              <th>Priorité</th>
+
+              <th>Début</th>
+              <th>Durée</th>
+              <th>Animaux</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for event in events %}
+              <tr>
+                 <td>{{ event.id }}</td>
+                 <td>{{ event.name }}</td>
+                 <td>{{ event.comment }}</td>
+
+                 <td>{{ event.category.name }}</td>
+                 <td>{{ event.status.name }}</td>
+                 <td>{{ event.priority.name }}</td>
+
+                 <td>{{ event.start|date('d/m/Y') }}</td>
+                 <td>{{ event.duration }}</td>
+
+                 <td>
+                 <select class="select">
+                 {% for animal in event.animals %}
+                 <option class="option" value={{ animal.id }}>{{ animal.name }}</option>
+                 {% else %}
+                 {% endfor %}
+                 
+                 </select>
+                 </td>
+                 <td></td>
+              </tr>
+          {% else %}
+              <tr>
+                 <td colspan="10">Aucun évènement trouvé.</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}
