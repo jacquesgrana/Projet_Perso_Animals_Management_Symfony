@@ -100,7 +100,7 @@ class Animal
 
     public function setCategory(?AnimalCategory $category): static
     {
-        $this->$category = $category;
+        $this->category = $category;
 
         return $this;
     }

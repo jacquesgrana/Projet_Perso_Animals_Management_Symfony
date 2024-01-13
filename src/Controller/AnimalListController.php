@@ -21,19 +21,13 @@ class AnimalListController extends AbstractController
         $this->animalRepository = $animalRepository;
     }
 
-    #[Route('/animal/list', name: 'app_animal_list')]
+    #[Route('/animals/list', name: 'app_animal_list')]
     public function index(): Response
     {
+        //die('hello');
         $user = $this->tokenStorage->getToken()->getUser(); 
         $animals = $this->animalRepository->findBy(['master' => $user]);
-        /*
-        dump($animals);
 
-        foreach ($animals as $animal) {
-            dump($animal->getCategory()->getName());
-        }
-        die('test');
-        */
         return $this->render('animal_list/index.html.twig', [
             'animals' => $animals,
         ]);

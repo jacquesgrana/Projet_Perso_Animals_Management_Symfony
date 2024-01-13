@@ -94,6 +94,7 @@ body {
     margin-bottom: 30px;
 }
 
+.animal-list-option,
 .home-option {
     margin-top: 30px;
     margin-bottom: 10px;
@@ -105,6 +106,7 @@ body {
     border: 1px solid rgb(20, 58, 160);
 }
 
+.animal-list-option:hover,
 .home-option:hover {
     cursor: pointer;
     color: orange;
@@ -128,6 +130,7 @@ body {
     margin-bottom: 5px;
 }
 
+.btn-form,
 .login-btn {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -139,6 +142,7 @@ body {
     border: 1px solid rgb(20, 58, 160);
 }
 
+.btn-form:hover,
 .login-btn:hover {
     cursor: pointer;
     color: orange;

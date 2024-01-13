@@ -38,8 +38,10 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/login', roles: PUBLIC_ACCESS }
+        - { path: '^/admin', roles: ROLE_ADMIN } 
         - { path: '^/home', roles: ROLE_USER } 
-        - { path: '^/animal/list', roles: ROLE_USER }
+        - { path: '^/animal', roles: ROLE_USER } 
+        - { path: '^/animals/list', roles: ROLE_USER }
         - { path: '^/event/list', roles: ROLE_USER }
 
 when@test:
