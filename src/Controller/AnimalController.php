@@ -35,6 +35,25 @@ class AnimalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Accéder aux données du formulaire
+            $formData = $form->getData();
+        
+            // Accéder aux événements depuis les données du formulaire
+            $events = $formData->getEvents();
+
+            //var_dump($events);
+            //die('events');
+            if($events) {
+            // Faire quelque chose avec les événements, par exemple les parcourir
+                foreach ($events as $event) {
+                    $event->addAnimal($animal);
+                    $animal->addEvent($event);
+                    $entityManager->persist($event);
+                }
+            }
+
+
             $entityManager->persist($animal);
             $entityManager->flush();
 
