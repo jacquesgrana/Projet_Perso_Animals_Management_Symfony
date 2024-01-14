@@ -26,6 +26,11 @@ class AnimalController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $animal = new Animal();
+        // Récupérer l'utilisateur en cours
+        $user = $this->getUser();
+
+        // Fixer l'utilisateur en cours comme maître de l'animal
+        $animal->setMaster($user);
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
 
@@ -33,7 +38,7 @@ class AnimalController extends AbstractController
             $entityManager->persist($animal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_animal_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('animal/new.html.twig', [
@@ -53,13 +58,14 @@ class AnimalController extends AbstractController
     #[Route('/{id}/edit', name: 'app_animal_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_animal_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('animal/edit.html.twig', [
@@ -76,6 +82,6 @@ class AnimalController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_animal_list', [], Response::HTTP_SEE_OTHER);
     }
 }

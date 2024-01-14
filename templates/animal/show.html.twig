@@ -3,7 +3,7 @@
 {% block title %}Animal{% endblock %}
 
 {% block body %}
-    <h1>Animal</h1>
+        <h2 class="home-title-top">Voir un animal</h2>
 
     <table class="table">
         <tbody>
@@ -12,23 +12,47 @@
                 <td>{{ animal.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ animal.name }}</td>
             </tr>
             <tr>
-                <th>Comment</th>
+                <th>Commentaire</th>
                 <td>{{ animal.comment }}</td>
             </tr>
             <tr>
-                <th>Birth</th>
+                <th>Naissance</th>
                 <td>{{ animal.birth ? animal.birth|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ animal.gender.name ? animal.gender.name : '' }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie</th>
+                <td>{{ animal.category.name ? animal.category.name : '' }}</td>
+            </tr>
+                        <tr>
+                <th>Maître</th>
+                <td>{{ animal.master.pseudo ? animal.master.pseudo : '' }}</td>
+            </tr>
+            <tr>
+                <th>Evènement(s)</th>
+                <td>
+                <select class="select">
+                
+                {% for event in animal.events %}
+                <option>{{ event.name }}</option>
+                {% else %}
+                <option>Pas d'évènement.</option>
+                {% endfor %}
+                </select>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_animal_index') }}">back to list</a>
 
-    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
-
+    <a class="btn-form" href="{{ path('app_animal_edit', {'id': animal.id}) }}">Editer</a>
     {{ include('animal/_delete_form.html.twig') }}
+    <a class="btn-form" href="{{ path('app_animal_list') }}">Retour à la liste</a>
 {% endblock %}

@@ -59,8 +59,9 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     width: 100vw;
-    height: 50px;
+    min-height: 50px;
     background-color: rgb(20, 58, 160); 
+    margin-top: 20px;
 }
 
 .navbar {
@@ -139,11 +140,32 @@ body {
     border-radius: 5px;
     color: white;
     text-decoration: none;
+    font-size: small;
     border: 1px solid rgb(20, 58, 160);
 }
 
 .btn-form:hover,
 .login-btn:hover {
+    cursor: pointer;
+    color: orange;
+    border: 1px solid orange;
+}
+
+.link-animal-list {
+    text-decoration: none;
+}
+
+.action-animal-list {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: rgb(20, 58, 160);
+    border-radius: 5px;
+    color: white;
+    border: 1px solid rgb(20, 58, 160);
+}
+
+.action-animal-list:hover {
     cursor: pointer;
     color: orange;
     border: 1px solid orange;
@@ -162,11 +184,11 @@ body {
      }
      
      tr:nth-child(even) {
-        background-color: rgba(20, 58, 160, 0.1); /* Teinte claire */
+        background-color: rgba(20, 58, 160, 0.15); /* Teinte claire */
      }
      
      tr:nth-child(odd) {
-        background-color: rgba(20, 58, 160, 0.2); /* Teinte plus foncée */
+        background-color: rgba(20, 58, 160, 0.3); /* Teinte plus foncée */
      }    
  }
 
@@ -181,6 +203,20 @@ body {
         padding: 10px !important;
         color: white;
     }
+ }
+
+ .form-control {
+    background-color: hsl(224, 59%, 68%);
+    display: flex;
+    margin-bottom: 20px;
+    gap: 20px;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 5px;
+ }
+
+ .centered {
+    text-align: center;
  }
  
 

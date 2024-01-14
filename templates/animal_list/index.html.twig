@@ -17,6 +17,7 @@
               <th>Date de naissance</th>
               <th>Genre</th>
               <th>Catégorie</th>
+              <th>Evènement(s)</th>
               <th>Actions</th>
           </tr>
       </thead>
@@ -29,7 +30,20 @@
                  <td>{{ animal.birth|date('d/m/Y') }}</td>
                  <td>{{ animal.gender.name }}</td>
                  <td>{{ animal.category.name }}</td>
-                 <td></td>
+                 <td>
+                <select class="select">
+                
+                {% for event in animal.events %}
+                <option>{{ event.name }}</option>
+                {% else %}
+                <option>Pas d'évènement.</option>
+                {% endfor %}
+                </select>
+                </td>
+                 <td>
+                  <a href="{{ path('app_animal_show', {'id': animal.id}) }}" class="link-animal-list"><span class="action-animal-list">👁</span></a>
+                  <a href="{{ path('app_animal_edit', {'id': animal.id}) }}" class="link-animal-list"><span class="action-animal-list">✎</span></a>
+                 </td>
               </tr>
           {% else %}
               <tr>
@@ -42,3 +56,5 @@
 
 </div>
 {% endblock %}
+
+                  
