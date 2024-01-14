@@ -97,6 +97,19 @@ class AnimalController extends AbstractController
     public function delete(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->request->get('_token'))) {
+            if($animal->getEvents()) {
+                foreach ($animal->getEvents() as $event) {
+                    $event->removeAnimal($animal);
+                    //$animal->removeEvent($event);
+                    if($event->getAnimals()->isEmpty()) {
+                        $entityManager->remove($event);
+                    }
+                    else {
+                        $entityManager->persist($event);
+                    }
+                }
+            }
+            
             $entityManager->remove($animal);
             $entityManager->flush();
         }
