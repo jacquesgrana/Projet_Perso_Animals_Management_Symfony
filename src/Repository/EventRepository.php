@@ -6,6 +6,7 @@ use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\User;
+use App\Entity\Animal;
 
 /**
  * @extends ServiceEntityRepository<Event>
@@ -32,6 +33,16 @@ class EventRepository extends ServiceEntityRepository
       ->setParameter('userId', $user->getId());
 
    return $qb->getQuery()->getResult();
+}
+
+public function findEventsByAnimal(Animal $animal): array
+{
+    return $this->createQueryBuilder('e')
+        ->join('e.animals', 'a')
+        ->where('a.id = :animalId')
+        ->setParameter('animalId', $animal->getId())
+        ->getQuery()
+        ->getResult();
 }
 
 

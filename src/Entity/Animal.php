@@ -137,6 +137,13 @@ class Animal
         return $this->events;
     }
 
+    public function setEvents(Collection $events): static
+    {
+        $this->events = $events;
+
+        return $this;
+    }
+
     public function addEvent(Event $event): static
     {
         if (!$this->events->contains($event)) {

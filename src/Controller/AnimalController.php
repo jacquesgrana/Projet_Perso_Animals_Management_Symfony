@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Animal;
+use App\Entity\Event;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[Route('/animal')]
 class AnimalController extends AbstractController
@@ -36,16 +39,9 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Accéder aux données du formulaire
             $formData = $form->getData();
-        
-            // Accéder aux événements depuis les données du formulaire
             $events = $formData->getEvents();
-
-            //var_dump($events);
-            //die('events');
             if($events) {
-            // Faire quelque chose avec les événements, par exemple les parcourir
                 foreach ($events as $event) {
                     $event->addAnimal($animal);
                     $animal->addEvent($event);
@@ -82,6 +78,42 @@ class AnimalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            $newEvents = $formData->getEvents();
+
+            $oldEvents = $entityManager->getRepository(Event::class)->findEventsByAnimal($animal);
+
+            $oldEventsCollection = new ArrayCollection($oldEvents);
+            $commonEvents = $newEvents->filter(function ($newEvent) use ($oldEventsCollection) {
+            return $oldEventsCollection->contains($newEvent);
+        });
+
+
+        $toAddEvents = $newEvents->filter(function ($newEvent) use ($commonEvents) {
+            return !$commonEvents->contains($newEvent);
+        });
+
+        $toRemoveEvents = $oldEventsCollection->filter(function ($oldEvent) use ($commonEvents) {
+            return !$commonEvents->contains($oldEvent);
+        });
+            
+        foreach ($toAddEvents as $event) {
+            $event->addAnimal($animal);
+            $animal->addEvent($event);
+            $entityManager->persist($event);
+        }
+        foreach ($toRemoveEvents as $event) {
+            $event->removeAnimal($animal);
+            $animal->removeEvent($event);
+            if($event->getAnimals()->isEmpty()) {
+                $entityManager->remove($event);
+            }
+            else {
+                $entityManager->persist($event);
+            }
+        }
+
+            $entityManager->persist($animal);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_animal_list', [], Response::HTTP_SEE_OTHER);
