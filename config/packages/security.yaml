@@ -41,8 +41,16 @@ security:
         - { path: '^/admin', roles: ROLE_ADMIN } 
         - { path: '^/home', roles: ROLE_USER } 
         - { path: '^/animal', roles: ROLE_USER } 
+        - { path: '^/animal/new', roles: ROLE_USER } 
+        - { path: '^/animal/{id}/edit', roles: ROLE_USER }
+        - { path: '^/animal/{id}', roles: ROLE_USER }    
         - { path: '^/animals/list', roles: ROLE_USER }
-        - { path: '^/event/list', roles: ROLE_USER }
+        - { path: '^/event', roles: ROLE_USER }
+        - { path: '^/event/{id}/edit', roles: ROLE_USER }
+        - { path: '^/event/new', roles: ROLE_USER }
+        - { path: '^/event/{id}', roles: ROLE_USER }    
+        - { path: '^/events/list', roles: ROLE_USER }
+
 
 when@test:
     security:

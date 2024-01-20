@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\EventRepository;
+use App\Entity\Event;
 class EventListController extends AbstractController
 {
     private $tokenStorage;
@@ -18,7 +19,7 @@ class EventListController extends AbstractController
         $this->eventRepository = $eventRepository;
     }
 
-    #[Route('/event/list', name: 'app_event_list')]
+    #[Route('/events/list', name: 'app_event_list')]
     public function index(): Response
     {
         $user = $this->tokenStorage->getToken()->getUser();

@@ -43,9 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'master', targetEntity: Animal::class)]
     private Collection $animals;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Event::class)]
+    private Collection $events;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getRoles(): array
@@ -178,6 +182,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($animal->getMaster() === $this) {
                 $animal->setMaster(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
             }
         }
 

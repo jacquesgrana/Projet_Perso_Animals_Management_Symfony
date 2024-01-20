@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 #[Route('/animal')]
 class AnimalController extends AbstractController
 {
@@ -49,7 +48,6 @@ class AnimalController extends AbstractController
                 }
             }
 
-
             $entityManager->persist($animal);
             $entityManager->flush();
 
@@ -80,38 +78,43 @@ class AnimalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $newEvents = $formData->getEvents();
-
             $oldEvents = $entityManager->getRepository(Event::class)->findEventsByAnimal($animal);
-
             $oldEventsCollection = new ArrayCollection($oldEvents);
+
             $commonEvents = $newEvents->filter(function ($newEvent) use ($oldEventsCollection) {
             return $oldEventsCollection->contains($newEvent);
-        });
+            });
 
 
-        $toAddEvents = $newEvents->filter(function ($newEvent) use ($commonEvents) {
-            return !$commonEvents->contains($newEvent);
-        });
+            $toAddEvents = $newEvents->filter(function ($newEvent) use ($commonEvents) {
+                return !$commonEvents->contains($newEvent);
+            });
 
-        $toRemoveEvents = $oldEventsCollection->filter(function ($oldEvent) use ($commonEvents) {
-            return !$commonEvents->contains($oldEvent);
-        });
+            $toRemoveEvents = $oldEventsCollection->filter(function ($oldEvent) use ($commonEvents) {
+                return !$commonEvents->contains($oldEvent);
+            });
             
-        foreach ($toAddEvents as $event) {
-            $event->addAnimal($animal);
-            $animal->addEvent($event);
-            $entityManager->persist($event);
-        }
-        foreach ($toRemoveEvents as $event) {
-            $event->removeAnimal($animal);
-            $animal->removeEvent($event);
-            if($event->getAnimals()->isEmpty()) {
-                $entityManager->remove($event);
+            if (!$toAddEvents->isEmpty()) {
+                foreach ($toAddEvents as $event) {
+                    $event->addAnimal($animal);
+                    $animal->addEvent($event);
+                    $entityManager->persist($event);
+                }
             }
-            else {
-                $entityManager->persist($event);
+
+            if (!$toRemoveEvents->isEmpty()) {
+               foreach ($toRemoveEvents as $event) {
+                    $event->removeAnimal($animal);
+                    $animal->removeEvent($event);
+                    if($event->getAnimals()->isEmpty()) {
+                        $entityManager->remove($event);
+                    }
+                    else {
+                        $entityManager->persist($event);
+                    }
+                } 
             }
-        }
+            
 
             $entityManager->persist($animal);
             $entityManager->flush();

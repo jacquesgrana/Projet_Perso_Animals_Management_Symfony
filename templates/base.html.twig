@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Gestion de mes animaux{% endblock %}</title>
-
+        <link rel="icon" type="image/png" href="{{ asset('image/favicon.ico') }}">
         {% block stylesheets %}
         {% endblock %}
 
@@ -15,14 +15,18 @@
         <header class="header">
         <h1 class="header-title">🐱🐶 Gestion de mes animaux 🐦🐟</h1>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> / pseudo : <span class="text-orange">{{ app.user.pseudo }}</span></p>
+        <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : <span class="text-orange">{{ app.user.pseudo }}</span> • <span><a href="{{ path('app_logout') }}"><span class="text-orange">Déconnexion</span></a></span></p>
+        {% else %}
+        <p class="text-white">Vous n'êtes pas connecté • <span><a href="{{ path('app_login') }}"><span class="text-orange">Connexion</span></a></span></p>
         {% endif %}
         <nav class="navbar">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <span><a href="{{ path('app_home') }}">Accueil</a></span>
-                    <span><a href="{{ path('app_logout') }}">Déconnexion</a></span>
+                    <span class="text-orange"> • </span>
+                    <span><a href="{{ path('app_animal_list') }}">Animaux</a></span>
+                    <span class="text-orange"> • </span>
+                    <span><a href="{{ path('app_event_list') }}">Evènements</a></span>
                 {% else %}
-                    <span><a href="{{ path('app_login') }}">Connexion</a></span>
                 {% endif %}
         </nav>
     </header>
@@ -30,7 +34,7 @@
         {% block body %}{% endblock %}
     </main>
     <footer class="footer">
-        <p>&copy; 2024 / Gestion de mes Animaux</p>
+        <p>&copy; Gestion de mes Animaux • 2024</p>
     </footer>
     </body>
 </html>

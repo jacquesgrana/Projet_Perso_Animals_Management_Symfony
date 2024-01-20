@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animal{% endblock %}
+{% block title %}Gestion de mes animaux / Voir un animal{% endblock %}
 
 {% block body %}
         <h2 class="home-title-top">Voir un animal</h2>
@@ -31,7 +31,7 @@
                 <th>Catégorie</th>
                 <td>{{ animal.category.name ? animal.category.name : '' }}</td>
             </tr>
-                        <tr>
+            <tr>
                 <th>Maître</th>
                 <td>{{ animal.master.pseudo ? animal.master.pseudo : '' }}</td>
             </tr>
@@ -41,9 +41,9 @@
                 <select class="select">
                 
                 {% for event in animal.events %}
-                <option>{{ event.name }}</option>
+                <option class="option">{{ event.name }}</option>
                 {% else %}
-                <option>Pas d'évènement.</option>
+                <option class="option">Pas d'évènement.</option>
                 {% endfor %}
                 </select>
                 </td>

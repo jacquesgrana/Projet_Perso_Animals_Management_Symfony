@@ -95,6 +95,7 @@ body {
     margin-bottom: 30px;
 }
 
+.event-list-option,
 .animal-list-option,
 .home-option {
     margin-top: 30px;
@@ -107,6 +108,7 @@ body {
     border: 1px solid rgb(20, 58, 160);
 }
 
+.event-list-option:hover,
 .animal-list-option:hover,
 .home-option:hover {
     cursor: pointer;
@@ -150,11 +152,12 @@ body {
     color: orange;
     border: 1px solid orange;
 }
-
+.link-event-list,
 .link-animal-list {
     text-decoration: none;
 }
 
+.action-event-list,
 .action-animal-list {
     margin-top: 10px;
     margin-bottom: 5px;
@@ -165,6 +168,7 @@ body {
     border: 1px solid rgb(20, 58, 160);
 }
 
+.action-event-list:hover,
 .action-animal-list:hover {
     cursor: pointer;
     color: orange;
@@ -175,6 +179,7 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 20px;
     border-collapse: collapse;
 
     th, td {

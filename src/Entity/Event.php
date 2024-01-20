@@ -43,6 +43,9 @@ class Event
     #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'events')]
     private Collection $animals;
 
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -164,6 +167,18 @@ class Event
     public function removeAnimal(Animal $animal): static
     {
         $this->animals->removeElement($animal);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

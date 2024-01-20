@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes animaux / Créer un évènementl{% endblock %}
+
+{% block body %}
+    <h2 class="home-title-top">Créer un évènemnt</h2>
+
+    {{ include('event/_form.html.twig') }}
+
+    <a class="btn-form" href="{{ path('app_event_list') }}">Retour à la liste</a>
+{% endblock %}
