@@ -109,7 +109,7 @@ class EventController extends AbstractController
             }
             
 
-            $entityManager->persist($animal);
+            $entityManager->persist($event);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_event_list', [], Response::HTTP_SEE_OTHER);

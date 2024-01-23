@@ -5,19 +5,22 @@
         <title>{% block title %}Gestion de mes animaux{% endblock %}</title>
         <link rel="icon" type="image/png" href="{{ asset('image/favicon.ico') }}">
         {% block stylesheets %}
+            <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css " rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js " defer></script>
+            <script src="{{ asset('javascript/Library.js')}}" defer></script>
         {% endblock %}
     </head>
     <body>
         <header class="header">
         <h1 class="header-title">🐱🐶 Gestion de mes animaux 🐦🐟</h1>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : <span class="text-orange">{{ app.user.pseudo }}</span> • <span><a href="{{ path('app_logout') }}"><span class="text-orange">Déconnexion</span></a></span></p>
+            <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : <span class="text-orange">{{ app.user.pseudo }}</span> • <span><a href="{{ path('app_logout') }}"><span class="text-orange">Déconnexion</span></a></span></p>
         {% else %}
-        <p class="text-white">Vous n'êtes pas connecté • <span><a href="{{ path('app_login') }}"><span class="text-orange">Connexion</span></a></span></p>
+            <p class="text-white">Vous n'êtes pas connecté • <span><a href="{{ path('app_login') }}"><span class="text-orange">Connexion</span></a></span></p>
         {% endif %}
         <nav class="navbar">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -26,6 +29,8 @@
                     <span><a href="{{ path('app_animal_list') }}">Animaux</a></span>
                     <span class="text-orange"> • </span>
                     <span><a href="{{ path('app_event_list') }}">Evènements</a></span>
+                    <span class="text-orange"> • </span>
+                    <span><a href="{{ path('app_calendar_show') }}">Calendrier</a></span>
                 {% else %}
                 {% endif %}
         </nav>
@@ -34,7 +39,7 @@
         {% block body %}{% endblock %}
     </main>
     <footer class="footer">
-        <p>&copy; Gestion de mes Animaux • 2024</p>
+        <p class="text-white">&copy; Gestion de mes Animaux • 2024</p>
     </footer>
     </body>
 </html>

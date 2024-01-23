@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(72, 111, 218);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100vw;
+    min-height: 140px;
+    background-color: rgb(20, 58, 160);
+}
+
+.header h1 {
+    color: white;
+}
+
+.header p {
+    margin-top: 0;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: orange;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.header-title {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100vw;
+    min-height: 50px;
+    background-color: rgb(20, 58, 160); 
+    margin-top: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.main {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.title-top,
+.home-title-top {
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+.btn-form {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(20, 58, 160);
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: small;
+    border: 1px solid rgb(20, 58, 160);
+}
+
+.btn-form:hover {
+    cursor: pointer;
+    color: orange;
+    border: 1px solid orange;
+}
+
+
+.text-white {
+    color: white;
+ }
+
+ .text-orange {
+    color: orange;
+ }
+ 
+ .calendar-class {
+    background-color: rgb(125, 154, 233);
+    color: black;
+ }
+
+.calendar-class .fc-event {
+    background-color: yellow;
+    color: orangered;
+}
+
+#calendar-holder {
+    width: 80vw;
+    min-width: 600px;
+    max-width: 1200px;
+    color: white;
+    background-color: rgb(20, 58, 160);
+}
+
+.bg-green {
+    background-color: green;
+}
+
+.bg-blue {
+    background-color: rgb(20, 58, 160);
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h2 class="home-title-top">Voir un évènement</h2>
+    <h2 class="home-title-top text-white">Voir un évènement</h2>
 
     <table class="table">
         <tbody>
@@ -63,4 +63,5 @@
     <a class="btn-form" href="{{ path('app_event_edit', {'id': event.id}) }}">Editer</a>
     {{ include('event/_delete_form.html.twig') }}
     <a class="btn-form" href="{{ path('app_event_list') }}">Retour à la liste</a>
+    <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
 {% endblock %}

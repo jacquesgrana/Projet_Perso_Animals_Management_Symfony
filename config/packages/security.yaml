@@ -22,9 +22,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
-                target: app_home
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -50,7 +48,7 @@ security:
         - { path: '^/event/new', roles: ROLE_USER }
         - { path: '^/event/{id}', roles: ROLE_USER }    
         - { path: '^/events/list', roles: ROLE_USER }
-
+        - { path: '^/calendar', roles: ROLE_USER }
 
 when@test:
     security:

@@ -3,9 +3,11 @@
 {% block title %}Gestion de mes animaux / Editer un animal{% endblock %}
 
 {% block body %}
-    <h2 class="home-title-top">Editer un animal</h2>
+    <h2 class="home-title-top text-white">Editer un animal</h2>
 
     {{ include('animal/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     {{ include('animal/_delete_form.html.twig') }}
     <a class="btn-form" href="{{ path('app_animal_list') }}">Retour à la liste</a>
+    <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+
 {% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes animaux / Voir le calendrier{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/app-calendar.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    <h2 class="home-title-top text-white">Voir le calendrier</h2>
+    <div id="calendar-holder" data-locale="fr"></div>
+    <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+
+    {# Additional JavaScript for this page, if needed #}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js" integrity="sha256-J37ZtjEw94oWBNZ9w/XC73raGXE9t10//XHJfKz2QCM=" crossorigin="anonymous"></script>
+    <script src="{{ asset('locales/locale-full-calendar-fr.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js" integrity="sha256-xkymBp70qMSHnInLEXDWb34pyON8sBGMA1S84vQILx4=" crossorigin="anonymous"></script>
+
+    <script>
+    console.log('Script loaded.');
+    var eventsToShow = {{ eventsToLoad | raw }};
+    console.log('events :', eventsToShow);
+
+        {# Your calendar initialization or other JavaScript code goes here #}
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM Content Loaded.');
+                const calendarEl = document.getElementById('calendar-holder');
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    editable: true,
+                    eventClassNames: ['calendar-class'],
+
+                    // Your FullCalendar options go here
+                    // ...
+                    buttonText: {
+                        prev: 'Précédent',
+                        next: 'Suivant',
+                        today: 'Aujourd\'hui',
+                        month: 'Mois',
+                        week: 'Semaine',
+                        day: 'Jour',
+                        list: 'Liste',
+                    },
+                    locale: 'fr',
+                    headerToolbar: {
+                        start: 'prev,next today',
+                        center: 'title',
+                        end: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    views: {
+                        dayGridMonth: { // name of view
+                        titleFormat: { year: 'numeric', month: 'long' }
+                        // other view-specific options here
+                        }
+                        
+                    }
+                });
+
+                eventsToShow.forEach(function(event) {
+                    const endDate = new Date(event.start);
+                    //console.log('event :', event);
+                    endDate.setDate(endDate.getDate());
+                    calendar.addEvent({
+                        title: `${event.name}`,
+                        start: event.start,
+                        end: endDate,
+                    // Ajoutez d'autres propriétés d'événement au besoin
+
+                        id: event.id,
+                        comment: event.comment,
+                        priority: event.priority,
+                        status: event.status,
+                        category: event.category,
+                        animals: event.animals,
+                        backgroundColor: getColorFromPriority(event.priority), // Remplacez 'blue' par la couleur de fond souhaitée
+                        
+                    });
+                });
+                calendar.setOption('eventClick', function(info) {
+                    console.log('animals', info.event.extendedProps.animals);
+                    // Afficher un popup avec les détails de l'événement
+
+                    Swal.fire({
+                        title: `Événement : ${info.event.title}`,
+                        html: `
+                            Commentaire : ${info.event.extendedProps.comment}<br>
+                            Début : ${formatDate(info.event.start)}<br>
+                            Priorité : ${info.event.extendedProps.priority}<br>
+                            Status : ${info.event.extendedProps.status}<br>
+                            Catégorie : ${info.event.extendedProps.category}<br>
+                            Animaux : ${formatAnimalList(info.event.extendedProps.animals)}
+                            `,
+                        icon: 'info',
+                        confirmButtonText: 'Retour'
+                    });
+
+                    //alert(`Événement : ${info.event.title}\nCommentaire : ${info.event.extendedProps.comment}\nDébut : ${info.event.start}\nPriorité : ${info.event.extendedProps.priority}\nStatus : ${info.event.extendedProps.status}\nCatégorie : ${info.event.extendedProps.category}\nAnimaux : ${formatAnimalList(info.event.extendedProps.animals)}`);
+                });
+
+                calendar.render();
+            });
+
+            // Fonction pour formater la date
+            function formatDate(date) {
+                const options = {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    timeZoneName: 'short'
+                };
+
+                return new Intl.DateTimeFormat('fr-FR', options).format(date);
+            }
+
+            // Fonction pour formater la liste d'animaux avec des balises <ul> et <li>
+            function formatAnimalList(animals) {
+                if (animals && animals.length > 0) {
+                    const animalListItems = animals.map(animal => `<li>${animal}</li>`).join('');
+                    return `\n<ul>${animalListItems}</ul>`;
+                } else {
+                    return '\nAucun animal spécifié';
+                }
+            }
+
+
+            function getColorFromPriority(priority) {
+                switch (priority) {
+                    case 'Non Urgente' :
+                        return 'green';
+                        break;
+                    case 'Normale' :
+                        return 'blue';
+                        break;
+                    case 'Urgente' :
+                        return 'orange';
+                        break;
+                    case 'Très Urgente' :
+                        return 'red';
+                        break;
+                    default :
+                        return 'white';
+                        break;
+                }
+            }
+        </script>
+
+    {% endblock %}
+{% endblock %}

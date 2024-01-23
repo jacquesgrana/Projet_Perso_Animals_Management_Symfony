@@ -45,6 +45,8 @@ public function findEventsByAnimal(Animal $animal): array
         ->getResult();
 }
 
+ 
+
 
 //    /**
 //     * @return Event[] Returns an array of Event objects

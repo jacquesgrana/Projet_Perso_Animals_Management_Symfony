@@ -151,4 +151,27 @@ class AnimalController extends AbstractController
 
         return $this->redirectToRoute('app_animal_list', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    private function getEmoticonFromCategory($category)
+    {
+        switch ($category) {
+            case "Chat":
+                return "🐈";
+            case "Chien":
+                return "🐕";
+            case "Poisson":
+                return "🐟";
+            case "Oiseau":
+                return "🐦";
+            case "Serpent":
+                return "🐍";
+            case "Insecte":
+                return "🐞";
+            case "Tortue":
+                return "🐢";
+            default:
+                return "";
+        }
+    }
 }

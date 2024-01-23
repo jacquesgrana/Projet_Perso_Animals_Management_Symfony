@@ -6,11 +6,12 @@
 
 <div class="home-wrapper">
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <h2 class="home-title-top">Accueil</h2>
+    <h2 class="home-title-top text-white">Accueil</h2>
     <a class="home-option" href="{{ path('app_animal_list') }}">Gérer mes animaux</a>
     <a class="home-option" href="{{ path('app_event_list') }}">Gérer mes évènements</a>
+    <a class="home-option" href="{{ path('app_calendar_show') }}">Afficher le calendrier</a>
 {% else %}
-<h2 class="home-title-top">Veuillez vous connecter</h2>
+<h2 class="home-title-top text-white">Veuillez vous connecter</h2>
  {% endif %}
 </div>
 {% endblock %}

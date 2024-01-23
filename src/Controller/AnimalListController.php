@@ -27,7 +27,9 @@ class AnimalListController extends AbstractController
         //die('hello');
         $user = $this->tokenStorage->getToken()->getUser(); 
         $animals = $this->animalRepository->findBy(['master' => $user]);
-
+        usort($animals, function ($a, $b) {
+            return $a->getId() <=> $b->getId();
+        });
         return $this->render('animal_list/index.html.twig', [
             'animals' => $animals,
         ]);
