@@ -220,6 +220,12 @@ body {
     padding: 5px;
  }
 
+ #emoticon-animal-show {
+    font-size: 5em;
+    text-align: center;
+    margin-bottom: 10px;
+ }
+
  .centered {
     text-align: center;
  }
@@ -232,4 +238,6 @@ body {
  .text-orange {
     color: orange;
  }
+
+
  

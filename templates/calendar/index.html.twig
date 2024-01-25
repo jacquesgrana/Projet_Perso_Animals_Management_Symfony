@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion de mes animaux / Voir le calendrier{% endblock %}
+{% block title %}Gestion de mes Animaux • Voir le calendrier{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/app-calendar.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous">
@@ -11,6 +11,7 @@
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
 
     {# Additional JavaScript for this page, if needed #}
+{% endblock %}
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js" integrity="sha256-J37ZtjEw94oWBNZ9w/XC73raGXE9t10//XHJfKz2QCM=" crossorigin="anonymous"></script>
     <script src="{{ asset('locales/locale-full-calendar-fr.js') }}"></script>
@@ -64,7 +65,6 @@
                         title: `${event.name}`,
                         start: event.start,
                         end: endDate,
-                    // Ajoutez d'autres propriétés d'événement au besoin
 
                         id: event.id,
                         comment: event.comment,
@@ -72,7 +72,7 @@
                         status: event.status,
                         category: event.category,
                         animals: event.animals,
-                        backgroundColor: getColorFromPriority(event.priority), // Remplacez 'blue' par la couleur de fond souhaitée
+                        backgroundColor: getColorFromPriority(event.priority),
                         
                     });
                 });
@@ -149,4 +149,4 @@
         </script>
 
     {% endblock %}
-{% endblock %}
+

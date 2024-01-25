@@ -148,3 +148,14 @@ body {
     background-color: orange;
 }
 
+.fc-button-primary {
+    background-color: rgb(2, 22, 77) !important;
+    color: white !important;
+    border-color: rgb(1, 12, 43) !important;
+}
+
+.fc-button-primary:hover {
+    background-color: rgb(1, 12, 43) !important;
+    color: orange !important;
+    border-color: orange !important;
+}

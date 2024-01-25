@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion de mes animaux / Voir un animal{% endblock %}
+{% block title %}Gestion de mes Animaux • Voir un animal{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/app.css') }}">
+{% endblock %}
 
 {% block body %}
         <h2 class="home-title-top text-white">Voir un animal</h2>
-
+        <p id="emoticon-animal-show"></p>
     <table class="table">
         <tbody>
             <tr>
@@ -29,7 +32,7 @@
             </tr>
             <tr>
                 <th>Catégorie</th>
-                <td>{{ animal.category.name ? animal.category.name : '' }}</td>
+                <td id="td-category-list">{{ animal.category.name ? animal.category.name : '' }}</td>
             </tr>
             <tr>
                 <th>Maître</th>
@@ -56,5 +59,47 @@
     {{ include('animal/_delete_form.html.twig') }}
     <a class="btn-form" href="{{ path('app_animal_list') }}">Retour à la liste</a>
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+    {% endblock %}
+    {% block javascripts %}
+    <script>
 
-{% endblock %}
+        document.addEventListener('DOMContentLoaded', () => {
+            const td = document.getElementById('td-category-list');
+            const char = getEmoticonFromAnimalCategory(td.innerText);
+            const emoticon = document.getElementById('emoticon-animal-show');
+            console.log('emoticon :', char);
+            if(char !== '#') 
+            {
+                td.innerText = char + ' ' + td.innerText;
+                emoticon.innerText = char;
+            }
+        });
+
+    
+
+        function getEmoticonFromAnimalCategory(category) {
+
+        switch (category) {
+            case "Chat":
+                return "🐈";
+            case "Chien":
+                return "🐕";
+            case "Poisson":
+                return "🐟";
+            case "Oiseau":
+                return "🐦";
+            case "Serpent":
+                return "🐍";
+            case "Insecte":
+                return "🐞";
+            case "Tortue":
+                return "🐢";
+            default :
+                return "#";
+        }
+    }
+
+    </script>
+    {% endblock %}
+
+

@@ -1,7 +1,7 @@
-//export class Library {
+class Library {
 
 
-    function getEmoticonFromAnimalCategory(category) {
+    static getEmoticonFromAnimalCategory(category) {
 
         switch (category) {
             case "Chat":
@@ -22,4 +22,24 @@
                 return "";
         }
     }
-//}
+
+    static getColorFromPriority(priority) {
+        switch (priority) {
+            case 'Non Urgente' :
+                return 'green';
+                break;
+            case 'Normale' :
+                return 'blue';
+                break;
+            case 'Urgente' :
+                return 'orange';
+                break;
+            case 'Très Urgente' :
+                return 'red';
+                break;
+            default :
+                return 'white';
+                break;
+        }
+    }
+}

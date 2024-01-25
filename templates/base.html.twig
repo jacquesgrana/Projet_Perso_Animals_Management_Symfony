@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Gestion de mes animaux{% endblock %}</title>
+        <title>{% block title %}Gestion de mes Animaux{% endblock %}</title>
         <link rel="icon" type="image/png" href="{{ asset('image/favicon.ico') }}">
         {% block stylesheets %}
             <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css " rel="stylesheet">
@@ -16,7 +16,7 @@
     </head>
     <body>
         <header class="header">
-        <h1 class="header-title">🐱🐶 Gestion de mes animaux 🐦🐟</h1>
+        <h1 class="header-title">🐱🐶 Gestion de mes Animaux 🐦🐟</h1>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : <span class="text-orange">{{ app.user.pseudo }}</span> • <span><a href="{{ path('app_logout') }}"><span class="text-orange">Déconnexion</span></a></span></p>
         {% else %}
@@ -39,7 +39,7 @@
         {% block body %}{% endblock %}
     </main>
     <footer class="footer">
-        <p class="text-white">&copy; Gestion de mes Animaux • 2024</p>
+        <p class="text-white"><span class="text-orange">&copy;</span> Gestion de mes Animaux <span class="text-orange">•</span> 2024</p>
     </footer>
     </body>
 </html>

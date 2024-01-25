@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\AnimalRepository;
 use App\Entity\Animal;
+use App\Library\CustomLibrary;
 
 class AnimalListController extends AbstractController
 {
@@ -24,9 +25,12 @@ class AnimalListController extends AbstractController
     #[Route('/animals/list', name: 'app_animal_list')]
     public function index(): Response
     {
-        //die('hello');
         $user = $this->tokenStorage->getToken()->getUser(); 
         $animals = $this->animalRepository->findBy(['master' => $user]);
+
+        foreach ($animals as $animal) { 
+            $animal->getCategory()->setName(CustomLibrary::getEmoticonFromCategory($animal->getCategory()->getName()) . " " . $animal->getCategory()->getName());
+        }
         usort($animals, function ($a, $b) {
             return $a->getId() <=> $b->getId();
         });
