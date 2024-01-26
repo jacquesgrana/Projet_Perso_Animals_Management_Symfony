@@ -105,14 +105,42 @@ body {
     border: 1px solid orange;
 }
 
-
 .text-white {
     color: white;
- }
+}
 
- .text-orange {
+.text-green {
+    color: green;
+}
+
+.text-blue {
+    color: rgb(20, 58, 160);
+}
+
+.text-orange {
     color: orange;
- }
+}
+
+.text-red {
+    color: red;
+}
+
+.bg-green {
+    background-color: green;
+}
+
+.bg-blue {
+    background-color: rgb(30, 74, 194);
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
  
  .calendar-class {
     background-color: rgb(125, 154, 233);
@@ -132,22 +160,6 @@ body {
     background-color: rgb(20, 58, 160);
 }
 
-.bg-green {
-    background-color: green;
-}
-
-.bg-blue {
-    background-color: rgb(20, 58, 160);
-}
-
-.bg-red {
-    background-color: red;
-}
-
-.bg-orange {
-    background-color: orange;
-}
-
 .fc-button-primary {
     background-color: rgb(2, 22, 77) !important;
     color: white !important;
@@ -158,4 +170,88 @@ body {
     background-color: rgb(1, 12, 43) !important;
     color: orange !important;
     border-color: orange !important;
+}
+
+/* Tableau de l'alerte */
+
+#table-alert-event {
+    color: white;
+    font-size: small;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgb(2, 22, 77);
+    border-radius: 5px; /* Coins arrondis du tableau */
+}
+
+.row-table-alert-event {
+    background-color: rgb(20, 58, 160); /* Couleur de fond par défaut */
+    text-align: left;
+}
+
+.row-table-alert-event:nth-child(even) {
+    background-color: rgb(48, 90, 206); /* Couleur de fond pour les lignes paires */
+}
+
+.row-table-alert-event td {
+    padding: 8px;
+    border-bottom: 1px solid rgb(2, 22, 77); /* Bordure inférieure des cellules */
+}
+
+.row-table-alert-event:last-child td {
+    border-bottom: none; /* Supprimer la bordure inférieure pour la dernière ligne */
+}
+
+/* Ajout de styles personnalisés pour l'alerte SweetAlert2 */
+.custom-swal-popup {
+    background-color: rgb(48, 90, 206) !important;
+} 
+.custom-swal-container {
+    background-color: rgba(20, 58, 160, 0.5) !important;
+    color: white !important;
+    /* Ajoutez vos styles personnalisés pour le conteneur principal de l'alerte ici */
+}
+
+.custom-swal-popup {
+    /* Ajoutez vos styles personnalisés pour la fenêtre popup de l'alerte ici */
+    border-radius: 10px;
+}
+/*
+.custom-swal-header {
+}*/
+
+.custom-swal-title {
+    /* Ajoutez vos styles personnalisés pour le titre de l'alerte ici */
+    color: white;
+}
+
+.custom-swal-confirm-button {
+    background-color: rgb(20, 58, 160) !important;
+    border: 1px solid rgb(2, 22, 77) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.custom-swal-confirm-button:hover {
+    border: 1px solid orange !important;
+    color: orange !important;
+}
+/*
+.custom-swal-content {
+}*/
+
+.swal2-icon {
+    background-color: rgba(2, 22, 77, 0.75);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+/*
+.swal2-icon-content {
+}*/
+
+.icon-priority-alert-event {
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: -2px;
 }

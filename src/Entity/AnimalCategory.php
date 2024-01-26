@@ -18,6 +18,9 @@ class AnimalCategory
     #[ORM\Column(length: 128)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 128)]
+    private ?string $emoticon = null;
+
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Animal::class)]
     private Collection $animals;
 
@@ -41,6 +44,18 @@ class AnimalCategory
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEmoticon(): ?string
+    {
+        return $this->emoticon;
+    }
+
+    public function setEmoticon(string $emoticon): static
+    {
+        $this->emoticon = $emoticon;
 
         return $this;
     }

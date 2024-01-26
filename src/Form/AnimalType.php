@@ -51,7 +51,9 @@ class AnimalType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'class' => AnimalCategory::class,
-                'choice_label' => 'name',
+                'choice_label' => function (AnimalCategory $category) {
+                    return $category->getEmoticon() . ' ' . $category->getName();
+                },
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Catégorie',
             ])

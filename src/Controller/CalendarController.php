@@ -44,7 +44,7 @@ class CalendarController extends AbstractController
             $animals = $this->animalRepository->findAnimalsByEvent($event);
             $amimalsToSend = [];
             foreach ($animals as $animal) {
-                $amimalsToSend[] = $animal->getName();
+                $amimalsToSend[] = $animal->getCategory()->getEmoticon().' '.$animal->getName();
             }
             $eventsToSend[] = [
                 'id' => $event->getId(),

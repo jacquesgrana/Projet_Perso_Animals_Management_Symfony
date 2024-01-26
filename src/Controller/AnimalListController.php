@@ -27,10 +27,10 @@ class AnimalListController extends AbstractController
     {
         $user = $this->tokenStorage->getToken()->getUser(); 
         $animals = $this->animalRepository->findBy(['master' => $user]);
-
+        /*
         foreach ($animals as $animal) { 
             $animal->getCategory()->setName(CustomLibrary::getEmoticonFromCategory($animal->getCategory()->getName()) . " " . $animal->getCategory()->getName());
-        }
+        }*/
         usort($animals, function ($a, $b) {
             return $a->getId() <=> $b->getId();
         });

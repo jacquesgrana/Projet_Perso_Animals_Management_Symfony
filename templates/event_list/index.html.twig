@@ -41,8 +41,8 @@
                  <td>
                  <select class="select">
                  {% for animal in event.animals %}
-                    <option class="option" value={{ animal.id }}>{{ animal.name }}</option>
-                 {% else %}
+                    <option class="option" value={{ animal.id }}>{{ animal.category.emoticon }} {{ animal.name }}</option>
+                    {% else %}
                  {% endfor %}
                  
                  </select>

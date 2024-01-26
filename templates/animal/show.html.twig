@@ -7,7 +7,7 @@
 
 {% block body %}
         <h2 class="home-title-top text-white">Voir un animal</h2>
-        <p id="emoticon-animal-show"></p>
+        <p id="emoticon-animal-show">{{ animal.category.emoticon }}</p>
     <table class="table">
         <tbody>
             <tr>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th>Catégorie</th>
-                <td id="td-category-list">{{ animal.category.name ? animal.category.name : '' }}</td>
+                <td id="td-category-list">{{ animal.category.emoticon ? animal.category.emoticon : '' }} {{ animal.category.name ? animal.category.name : '' }}</td>
             </tr>
             <tr>
                 <th>Maître</th>
@@ -62,7 +62,7 @@
     {% endblock %}
     {% block javascripts %}
     <script>
-
+        /*
         document.addEventListener('DOMContentLoaded', () => {
             const td = document.getElementById('td-category-list');
             const char = getEmoticonFromAnimalCategory(td.innerText);
@@ -74,7 +74,7 @@
                 emoticon.innerText = char;
             }
         });
-
+*/
     
 
         function getEmoticonFromAnimalCategory(category) {

@@ -16,11 +16,17 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js" integrity="sha256-J37ZtjEw94oWBNZ9w/XC73raGXE9t10//XHJfKz2QCM=" crossorigin="anonymous"></script>
     <script src="{{ asset('locales/locale-full-calendar-fr.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js" integrity="sha256-xkymBp70qMSHnInLEXDWb34pyON8sBGMA1S84vQILx4=" crossorigin="anonymous"></script>
+    <script src="{{ asset('javascript/Library.js') }}"></script>
+    <script src="{{ asset('javascript/CalendarManager.js') }}"></script>
 
     <script>
-    console.log('Script loaded.');
-    var eventsToShow = {{ eventsToLoad | raw }};
-    console.log('events :', eventsToShow);
+
+    //console.log('Script loaded.');
+    const eventsToShow = {{ eventsToLoad | raw }};
+    //console.log('events :', eventsToShow);
+    let calendarManager = new CalendarManager(eventsToShow);
+    calendarManager.run();
+    /*
 
         {# Your calendar initialization or other JavaScript code goes here #}
             
@@ -81,17 +87,50 @@
                     // Afficher un popup avec les détails de l'événement
 
                     Swal.fire({
-                        title: `Événement : ${info.event.title}`,
+                        title: `${info.event.title}`,
                         html: `
-                            Commentaire : ${info.event.extendedProps.comment}<br>
-                            Début : ${formatDate(info.event.start)}<br>
-                            Priorité : ${info.event.extendedProps.priority}<br>
-                            Status : ${info.event.extendedProps.status}<br>
-                            Catégorie : ${info.event.extendedProps.category}<br>
-                            Animaux : ${formatAnimalList(info.event.extendedProps.animals)}
-                            `,
+                        <table id="table-alert-event">
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Commentaire :</td>
+                                <td>${info.event.extendedProps.comment}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Début :</td>
+                                <td>${formatDateFct(info.event.start)}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Fin :</td>
+                                <td>${formatDateFct(info.event.end)}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Priorité :</td>
+                             <td><span class="icon-priority-alert-event bg-${getColorFromPriority(info.event.extendedProps.priority)}"></span>  ${info.event.extendedProps.priority}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Statut :</td>
+                                <td>${info.event.extendedProps.status}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Catégorie :</td>
+                                <td>${info.event.extendedProps.category}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Animaux :</td>
+                                <td>${formatAnimalListFct(info.event.extendedProps.animals)}</td>
+                            </tr>
+                        </table>
+                        `,
                         icon: 'info',
-                        confirmButtonText: 'Retour'
+                        confirmButtonText: 'Retour',
+                        customClass: {
+                            container: 'custom-swal-container', // classe pour le conteneur principal de l'alerte
+                            popup: 'custom-swal-popup', // classe pour la fenêtre popup
+                            header: 'custom-swal-header', // classe pour l'en-tête
+                            title: 'custom-swal-title', // classe pour le titre
+                            closeButton: 'custom-swal-close-button', // classe pour le bouton de fermeture
+                            content: 'custom-swal-content', // classe pour le contenu
+                            confirmButton: 'custom-swal-confirm-button', // classe pour le bouton de confirmation
+                        },
                     });
 
                     //alert(`Événement : ${info.event.title}\nCommentaire : ${info.event.extendedProps.comment}\nDébut : ${info.event.start}\nPriorité : ${info.event.extendedProps.priority}\nStatus : ${info.event.extendedProps.status}\nCatégorie : ${info.event.extendedProps.category}\nAnimaux : ${formatAnimalList(info.event.extendedProps.animals)}`);
@@ -101,7 +140,7 @@
             });
 
             // Fonction pour formater la date
-            function formatDate(date) {
+            function formatDateFct(date) {
                 const options = {
                     weekday: 'long',
                     day: 'numeric',
@@ -117,12 +156,12 @@
             }
 
             // Fonction pour formater la liste d'animaux avec des balises <ul> et <li>
-            function formatAnimalList(animals) {
+            function formatAnimalListFct(animals) {
                 if (animals && animals.length > 0) {
-                    const animalListItems = animals.map(animal => `<li>${animal}</li>`).join('');
-                    return `\n<ul>${animalListItems}</ul>`;
+                    const animalListItems = animals.map(animal => `<div>${animal}</div>`).join('');
+                    return `<div>${animalListItems}</div>`;
                 } else {
-                    return '\nAucun animal spécifié';
+                    return 'Aucun animal spécifié';
                 }
             }
 
@@ -146,6 +185,7 @@
                         break;
                 }
             }
+            */
         </script>
 
     {% endblock %}
