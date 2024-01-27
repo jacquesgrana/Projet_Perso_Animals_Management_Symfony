@@ -46,9 +46,21 @@ class Event
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $patternsNumber = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $weekPattern = null;
+
+
+    // ajouter propriété patternsNumber de type int (0 -> 999) 1 -> pas de répétition, 2 -> 1 répétition, etc. / 0 -> infini
+
+    // ajouter propriété weekPattern de type string ('1;0;0;1;0;0;0' -> pour lundi et jeudi, '0;1;1;0;0;0;1' -> pour mardi, mercredi et dimanche)
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        $this->patternsNumber = 1;
     }
 
     public function getId(): ?int
@@ -179,6 +191,30 @@ class Event
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPatternsNumber(): ?int
+    {
+        return $this->patternsNumber;
+    }
+
+    public function setPatternsNumber(?int $patternsNumber): static
+    {
+        $this->patternsNumber = $patternsNumber;
+
+        return $this;
+    }
+
+    public function getWeekPattern(): ?string
+    {
+        return $this->weekPattern;
+    }
+
+    public function setWeekPattern(?string $weekPattern): static
+    {
+        $this->weekPattern = $weekPattern;
 
         return $this;
     }

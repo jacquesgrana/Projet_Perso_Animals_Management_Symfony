@@ -41,20 +41,36 @@
                 <td>{{ event.start ? event.start|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Durée</th>
+                <th>Durée (min)</th>
                 <td>{{ event.duration }}</td>
+            </tr>
+            <tr>
+                <th>Nb fois</th>
+                <td>{{ event.patternsNumber == 0 ? '<span class="infinity-char">∞</span>' : event.patternsNumber }}</td>
+            </tr>
+
+            <tr>
+                <th>Semaine</th>
+                <td>
+                    <select class="select">
+                        {% for day in week %}
+                            <option class="option">{{ day }}</option>
+                        {% else %}
+                            <option class="option">Pas de jour.</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>Animaux</th>
                 <td>
-                <select class="select">
-                
-                {% for animal in event.animals %}
-                <option class="option">{{ animal.name }}</option>
-                {% else %}
-                <option class="option">Pas d'animal.</option>
-                {% endfor %}
-                </select>
+                    <select class="select">
+                        {% for animal in event.animals %}
+                            <option class="option">{{ animal.name }}</option>
+                        {% else %}
+                            <option class="option">Pas d'animal.</option>
+                        {% endfor %}
+                    </select>
                 </td>
             </tr>
         </tbody>

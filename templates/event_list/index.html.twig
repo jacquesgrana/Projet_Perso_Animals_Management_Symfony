@@ -20,8 +20,9 @@
               <th>Début</th>
               <th>Durée</th>
               <th>Utilisateur</th>
+              <th>Nb</th>
               <th>Animaux</th>
-              <th>Actions</th>
+              <th class="actions-col-event-list">Actions</th>
           </tr>
       </thead>
       <tbody>
@@ -38,6 +39,7 @@
                  <td>{{ event.start|date('d/m/Y') }}</td>
                  <td>{{ event.duration }}</td>
                  <td>{{ event.user.pseudo }}</td>
+                 <td>{{ event.patternsNumber == 0 ? '<span class="infinity-char">∞</span>' : event.patternsNumber }}</td>
                  <td>
                  <select class="select">
                  {% for animal in event.animals %}
@@ -47,7 +49,7 @@
                  
                  </select>
                  </td>
-                 <td>
+                 <td  class="actions-col-event-list">
                     <a href="{{ path('app_event_show', {'id': event.id}) }}" class="link-event-list"><span class="action-event-list">👁</span></a>
                     <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="link-event-list"><span class="action-event-list">✎</span></a>
                  </td>

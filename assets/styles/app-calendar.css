@@ -102,6 +102,7 @@ body {
 .btn-form:hover {
     cursor: pointer;
     color: orange;
+    background-color: rgb(2, 22, 77);
     border: 1px solid orange;
 }
 
@@ -143,8 +144,16 @@ body {
 
  
  .calendar-class {
-    background-color: rgb(125, 154, 233);
-    color: black;
+    background-color: rgb(2, 22, 77) !important;
+    color: white !important;
+    border: 1px solid rgb(2, 22, 77);
+ }
+
+ .calendar-class:hover {
+    background-color: rgb(1, 12, 43) !important;
+    color: orange !important;
+    border: 1px solid orange;
+    cursor: pointer;
  }
 
 .calendar-class .fc-event {
@@ -202,9 +211,7 @@ body {
 }
 
 /* Ajout de styles personnalisés pour l'alerte SweetAlert2 */
-.custom-swal-popup {
-    background-color: rgb(48, 90, 206) !important;
-} 
+
 .custom-swal-container {
     background-color: rgba(20, 58, 160, 0.5) !important;
     color: white !important;
@@ -212,8 +219,9 @@ body {
 }
 
 .custom-swal-popup {
-    /* Ajoutez vos styles personnalisés pour la fenêtre popup de l'alerte ici */
+    background-color: rgb(5, 36, 119);
     border-radius: 10px;
+    border: 1px solid rgb(2, 22, 77);
 }
 /*
 .custom-swal-header {
@@ -232,8 +240,10 @@ body {
 }
 
 .custom-swal-confirm-button:hover {
-    border: 1px solid orange !important;
+    background-color: rgb(2, 22, 77) !important;
     color: orange !important;
+    border-color: orange !important;
+    box-shadow: none !important;
 }
 /*
 .custom-swal-content {

@@ -14,7 +14,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\AnimalRepository;
-
+use Symfony\Component\Validator\Constraints\Range;
+use App\Library\WeekPatternLibrary;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Form\DataTransformer\WeekPatternToStringTransformer;
 class EventType extends AbstractType
 {
     private $tokenStorage;
@@ -55,6 +58,40 @@ class EventType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Durée',
             ])
+            ->add('patternsNumber', null, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Nb fois (\'0\' -> ∞ infini)',
+                'constraints' => [
+                    new Range([
+                        'min' => 0,
+                        'max' => 99,
+                        'minMessage' => 'La valeur minimale autorisée est {{ limit }}.',
+                        'maxMessage' => 'La valeur maximale autorisée est {{ limit }}.',
+                    ]),
+                ],
+            ])
+            /*
+            ->add('weekPattern', null, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Pattern de la semaine',
+                // Ajoutez d'autres options si nécessaire
+            ])*/
+            
+            ->add('weekPattern', ChoiceType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Pattern de la semaine',
+                'choices' => [
+                    'Lundi' => 'Lundi',
+                    'Mardi' => 'Mardi',
+                    'Mercredi' => 'Mercredi',
+                    'Jeudi' => 'Jeudi',
+                    'Vendredi' => 'Vendredi',
+                    'Samedi' => 'Samedi',
+                    'Dimanche' => 'Dimanche',
+                ],
+                'multiple' => true,
+                //'expanded' => true,
+            ])
             ->add('category', EntityType::class, [
                 'class' => EventCategory::class,
                 'choice_label' => 'name',
@@ -83,6 +120,7 @@ class EventType extends AbstractType
                 'label' => 'Animaux',
             ])
         ;
+        $builder->get('weekPattern')->addModelTransformer(new WeekPatternToStringTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

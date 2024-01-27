@@ -42,7 +42,11 @@ class CalendarManager {
             this.eventsToShow.forEach((event) => {
                 // add event.duration to event.start to calculate end
                 const endDate = new Date(event.start);
-                endDate.setHours(endDate.getHours() + event.duration);
+                const durationInMinutes = event.duration;
+                const hours = Math.floor(durationInMinutes / 60);
+                const minutes = durationInMinutes % 60;
+                endDate.setHours(endDate.getHours() + hours);
+                endDate.setMinutes(endDate.getMinutes() + minutes);
                 endDate.setDate(endDate.getDate());
                 calendar.addEvent({
                     title: `${event.name}`,

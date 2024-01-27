@@ -151,6 +151,7 @@ body {
     cursor: pointer;
     color: orange;
     border: 1px solid orange;
+    background-color: rgb(2, 22, 77);
 }
 .link-event-list,
 .link-animal-list {
@@ -197,6 +198,10 @@ body {
      }    
  }
 
+ .actions-col-event-list {
+    width: 100px;
+ }
+
  .select {
     background-color: rgb(20, 58, 160);
     border-radius: 5px;
@@ -228,6 +233,13 @@ body {
 
  .centered {
     text-align: center;
+ }
+
+ .infinity-char {
+    font-size: 1.6em;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    padding: 0;
  }
  
 
