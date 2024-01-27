@@ -231,23 +231,22 @@ body {
     margin-bottom: 10px;
  }
 
- .centered {
+.centered {
     text-align: center;
  }
 
- .infinity-char {
+.infinity-char {
     font-size: 1.6em;
     margin-top: -5px;
     margin-bottom: -5px;
     padding: 0;
  }
- 
 
- .text-white {
+.text-white {
     color: white;
  }
 
- .text-orange {
+.text-orange {
     color: orange;
  }
 

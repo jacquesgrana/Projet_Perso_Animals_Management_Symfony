@@ -90,7 +90,7 @@ class EventType extends AbstractType
                     'Dimanche' => 'Dimanche',
                 ],
                 'multiple' => true,
-                //'expanded' => true,
+                'expanded' => true,
             ])
             ->add('category', EntityType::class, [
                 'class' => EventCategory::class,
@@ -118,6 +118,7 @@ class EventType extends AbstractType
                 'choices' => $animals,
                 'required' => false,
                 'label' => 'Animaux',
+                'expanded' => true,
             ])
         ;
         $builder->get('weekPattern')->addModelTransformer(new WeekPatternToStringTransformer());

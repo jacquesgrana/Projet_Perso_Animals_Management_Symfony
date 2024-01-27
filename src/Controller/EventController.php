@@ -48,6 +48,13 @@ class EventController extends AbstractController
                 }
             }
 
+            // ajouter au pattern le jour de start de l'event
+
+            // recupérer le nom en anglais de start de l'event
+            $dayName = WeekPatternLibrary::getFrenchDayName($formData->getStart()->format('l'));
+            // générer le nouveau pattern avec le jour de start de l'event
+            //dd($dayName);
+            $event->setWeekPattern(WeekPatternLibrary::getPatternAfterAddDay($event->getWeekPattern(), $dayName));
             $entityManager->persist($event);
             $entityManager->flush();
 
@@ -112,7 +119,13 @@ class EventController extends AbstractController
                 }
             }
             
+            // ajouter au pattern le jour de start de l'event
 
+            // recupérer le nom de start de l'event
+            $dayName = WeekPatternLibrary::getFrenchDayName($formData->getStart()->format('l'));
+            // générer le nouveau pattern avec le jour de start de l'event
+            //dd($dayName);
+            $event->setWeekPattern(WeekPatternLibrary::getPatternAfterAddDay($event->getWeekPattern(), $dayName));
             $entityManager->persist($event);
             $entityManager->flush();
 

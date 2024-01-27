@@ -4,7 +4,7 @@ namespace App\Library;
 class WeekPatternLibrary {
 
     public static $weekNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-    public static $weekCodes = ["MON", "TUE", "WEN", "THI", "FRI", "SAT", "SUN"];
+    public static $weekCodes = ["MON", "TUE", "WEN", "THU", "FRI", "SAT", "SUN"];
     // un pattern est une string de la forme : '0;1;0;1;0;0;0'
     // avec 0 : pas d'event et 1 : event ce jour la
     // ici : mardi et jeudi : 0;1;0;1;0;0;0
@@ -45,5 +45,38 @@ class WeekPatternLibrary {
         //dd($weekPattern);
         return $weekPattern;
     }
+
+    // fonction avec un switch/case qui transforme un nom de jour en anglais en nom de jour français    
+    public static function getFrenchDayName($dayName): string{
+        switch ($dayName) {
+            case 'Monday':
+                return 'Lundi';
+            case 'Tuesday':
+                return 'Mardi';
+            case 'Wednesday':
+                return 'Mercredi';
+            case 'Thursday':
+                return 'Jeudi';
+            case 'Friday':
+                return 'Vendredi';
+            case 'Saturday':
+                return 'Samedi';
+            case 'Sunday':
+                return 'Dimanche';
+            default:
+                return $dayName;
+        }
+    }
+
+    // fonction qui ajouter à un pattern un jour de la semaine
+    public static function getPatternAfterAddDay($weekPattern, $dayToAdd): string{
+        $oldDays = Static::getDayNames($weekPattern);
+        if (!in_array($dayToAdd, $oldDays)) {
+            $oldDays[] = $dayToAdd;
+        }
+        
+        return Static::getWeekPattern($oldDays);
+    }
+
 }
 ?>
