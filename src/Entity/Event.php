@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Library\WeekPatternLibrary;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -61,6 +62,11 @@ class Event
     {
         $this->animals = new ArrayCollection();
         $this->patternsNumber = 1;
+    }
+
+    public function getDaysNamesFromPattern(): array
+    {
+        return WeekPatternLibrary::getDayNames($this->getWeekPattern());
     }
 
     public function getId(): ?int

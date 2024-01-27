@@ -28,6 +28,7 @@ class EventListController extends AbstractController
         usort($events, function ($a, $b) {
             return $a->getId() <=> $b->getId();
         });
+        
         //dump($events);
         //die('test');
         return $this->render('event_list/index.html.twig', [

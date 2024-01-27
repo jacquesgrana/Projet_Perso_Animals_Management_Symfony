@@ -121,7 +121,7 @@ class EventController extends AbstractController
             
             // ajouter au pattern le jour de start de l'event
 
-            // recupérer le nom de start de l'event
+            // recupérer le nom du jour depuis start de l'event
             $dayName = WeekPatternLibrary::getFrenchDayName($formData->getStart()->format('l'));
             // générer le nouveau pattern avec le jour de start de l'event
             //dd($dayName);

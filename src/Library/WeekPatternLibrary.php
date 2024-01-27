@@ -12,7 +12,6 @@ class WeekPatternLibrary {
     //fonction qui renvoi le nom des jours dans un tableau de string
     // en fonction du pattern
     public static function getDayNames($weekPattern): array{
-
         $weekPatternArray = explode(';', $weekPattern);
         $cpt = 0;
         $weekPatternName = [];

@@ -21,6 +21,7 @@
               <th>Durée</th>
               <th>Utilisateur</th>
               <th>Nb</th>
+              <th>Semaine</th>
               <th>Animaux</th>
               <th class="actions-col-event-list">Actions</th>
           </tr>
@@ -36,10 +37,18 @@
                  <td>{{ event.status.name }}</td>
                  <td>{{ event.priority.name }}</td>
 
-                 <td>{{ event.start|date('d/m/Y') }}</td>
+                 <td>{{ event.start|date('d/m/Y H:i') }}</td>
                  <td>{{ event.duration }}</td>
                  <td>{{ event.user.pseudo }}</td>
                  <td>{{ event.patternsNumber == 0 ? '<span class="infinity-char">∞</span>' : event.patternsNumber }}</td>
+                 <td>
+                    <select class="select">
+                        {% for day in event.getDaysNamesFromPattern %}
+                            <option class="option" value={{ day }}>{{ day }}</option>
+                        {% else %}
+                        {% endfor %}
+                    </select>
+                 </td>
                  <td>
                  <select class="select">
                  {% for animal in event.animals %}
