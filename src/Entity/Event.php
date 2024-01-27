@@ -53,11 +53,6 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $weekPattern = null;
 
-
-    // ajouter propriété patternsNumber de type int (0 -> 999) 1 -> pas de répétition, 2 -> 1 répétition, etc. / 0 -> infini
-
-    // ajouter propriété weekPattern de type string ('1;0;0;1;0;0;0' -> pour lundi et jeudi, '0;1;1;0;0;0;1' -> pour mardi, mercredi et dimanche)
-
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -67,6 +62,27 @@ class Event
     public function getDaysNamesFromPattern(): array
     {
         return WeekPatternLibrary::getDayNames($this->getWeekPattern());
+    }
+
+    public function getColorFromPriority(): string {
+        //dd($this->getPriority()->getName());
+        switch ($this->getPriority()->getName()) {
+            case 'Non Urgente' :
+                return 'green';
+                break;
+            case 'Normale' :
+                return 'blue';
+                break;
+            case 'Urgente' :
+                return 'orange';
+                break;
+            case 'Très Urgente' :
+                return 'red';
+                break;
+            default :
+                return 'white';
+                break;
+        }
     }
 
     public function getId(): ?int

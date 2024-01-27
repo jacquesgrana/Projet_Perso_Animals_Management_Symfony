@@ -34,7 +34,9 @@
             </tr>
             <tr>
                 <th>Priorité</th>
-                <td>{{ event.priority.name }}</td>
+                <td>
+                    <span class="icon-priority-alert-event bg-green bg-{{ event.getColorFromPriority }}">
+                    </span> {{ event.priority.name }}</td>
             </tr>
             <tr>
                 <th>Début</th>
@@ -66,7 +68,7 @@
                 <td>
                     <select class="select">
                         {% for animal in event.animals %}
-                            <option class="option">{{ animal.name }}</option>
+                            <option class="option">{{ animal.category.emoticon }} {{ animal.name }}</option>
                         {% else %}
                             <option class="option">Pas d'animal.</option>
                         {% endfor %}

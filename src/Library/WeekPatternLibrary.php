@@ -4,10 +4,12 @@ namespace App\Library;
 class WeekPatternLibrary {
 
     public static $weekNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-    public static $weekCodes = ["MON", "TUE", "WEN", "THU", "FRI", "SAT", "SUN"];
+    public static $weekCodes = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    public static $weekNamesEnglish = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
     // un pattern est une string de la forme : '0;1;0;1;0;0;0'
     // avec 0 : pas d'event et 1 : event ce jour la
-    // ici : mardi et jeudi : 0;1;0;1;0;0;0
+    // ici : Mardi et Jeudi : 0;1;0;1;0;0;0
 
     //fonction qui renvoi le nom des jours dans un tableau de string
     // en fonction du pattern
@@ -24,7 +26,7 @@ class WeekPatternLibrary {
         return $weekPatternName;
     }
 
-    // fonction inverse qui génère le pattern à partir d'un tableau de string ex ['lundi', 'mercredi', 'dimanche'] retourne '1;0;1;0;0;0;1'
+    // fonction inverse qui génère le pattern à partir d'un tableau de string ex ['Lundi', 'Mercredi', 'Dimanche'] retourne '1;0;1;0;0;0;1'
     public static function getWeekPattern($weekPatternNames): string{
         //dd($weekPatternNames);
         // si $weekPatternNames n'est pas un tableau mais une string, on le transforme en tableau contenant un element qui est la string
@@ -62,6 +64,28 @@ class WeekPatternLibrary {
                 return 'Samedi';
             case 'Sunday':
                 return 'Dimanche';
+            default:
+                return $dayName;
+        }
+    }
+
+    //fonction inverse de getFrenchDayName
+    public static function getEnglishDayName($dayName): string{
+        switch ($dayName) {
+            case 'Lundi':
+                return 'Monday';
+            case 'Mardi':
+                return 'Tuesday';
+            case 'Mercredi':
+                return 'Wednesday';
+            case 'Jeudi':
+                return 'Thursday';
+            case 'Vendredi':
+                return 'Friday';
+            case 'Samedi':
+                return 'Saturday';
+            case 'Dimanche':
+                return 'Sunday';
             default:
                 return $dayName;
         }

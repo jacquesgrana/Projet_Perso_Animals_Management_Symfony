@@ -242,6 +242,30 @@ body {
     padding: 0;
  }
 
+ .icon-priority-alert-event {
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: -2px;
+}
+
+.bg-green {
+    background-color: green;
+}
+
+.bg-blue {
+    background-color: rgb(30, 74, 194);
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
 .text-white {
     color: white;
  }

@@ -35,7 +35,7 @@
 
                  <td>{{ event.category.name }}</td>
                  <td>{{ event.status.name }}</td>
-                 <td>{{ event.priority.name }}</td>
+                 <td><span class="icon-priority-alert-event bg-green bg-{{ event.getColorFromPriority }}"></span> {{ event.priority.name }}</td>
 
                  <td>{{ event.start|date('d/m/Y H:i') }}</td>
                  <td>{{ event.duration }}</td>
