@@ -56,7 +56,9 @@ class CalendarController extends AbstractController
                 'priority' => $event->getPriority()->getName(),
                 'category' => $event->getCategory()->getName(),
                 'status' => $event->getStatus()->getName(),
-                'animals' => $amimalsToSend
+                'animals' => $amimalsToSend,
+                'patternsNumber' => $event->getPatternsNumber(),
+                'weekPattern' => $event->getWeekPattern(),
             ];
         }
         //dd(json_encode($eventsToSend));

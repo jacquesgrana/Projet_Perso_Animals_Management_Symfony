@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Library\WeekPatternLibrary;
+use App\Library\CustomLibrary;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -64,7 +65,10 @@ class Event
         return WeekPatternLibrary::getDayNames($this->getWeekPattern());
     }
 
+    // TODO mettre dans CustomLibrary
     public function getColorFromPriority(): string {
+        return CustomLibrary::getColorFromPriority($this->getPriority()->getName());
+        /*
         //dd($this->getPriority()->getName());
         switch ($this->getPriority()->getName()) {
             case 'Non Urgente' :
@@ -82,7 +86,7 @@ class Event
             default :
                 return 'white';
                 break;
-        }
+        }*/
     }
 
     public function getId(): ?int

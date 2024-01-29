@@ -16,14 +16,14 @@ class WeekPatternLibrary {
     public static function getDayNames($weekPattern): array{
         $weekPatternArray = explode(';', $weekPattern);
         $cpt = 0;
-        $weekPatternName = [];
+        $weekPatternNames = [];
         foreach ($weekPatternArray as $day) {
             if($day == 1) {
-                $weekPatternName[] = self::$weekNames[$cpt];
+                $weekPatternNames[] = self::$weekNames[$cpt];
             }
             $cpt++;
         }
-        return $weekPatternName;
+        return $weekPatternNames;
     }
 
     // fonction inverse qui génère le pattern à partir d'un tableau de string ex ['Lundi', 'Mercredi', 'Dimanche'] retourne '1;0;1;0;0;0;1'
@@ -46,6 +46,16 @@ class WeekPatternLibrary {
         //dd($weekPattern);
         return $weekPattern;
     }
+
+        // fonction qui ajoute à un pattern un jour de la semaine
+        public static function getPatternAfterAddDay($weekPattern, $dayToAdd): string{
+            $oldDays = Static::getDayNames($weekPattern);
+            if (!in_array($dayToAdd, $oldDays)) {
+                $oldDays[] = $dayToAdd;
+            }
+            
+            return Static::getWeekPattern($oldDays);
+        }
 
     // fonction avec un switch/case qui transforme un nom de jour en anglais en nom de jour français    
     public static function getFrenchDayName($dayName): string{
@@ -89,16 +99,6 @@ class WeekPatternLibrary {
             default:
                 return $dayName;
         }
-    }
-
-    // fonction qui ajouter à un pattern un jour de la semaine
-    public static function getPatternAfterAddDay($weekPattern, $dayToAdd): string{
-        $oldDays = Static::getDayNames($weekPattern);
-        if (!in_array($dayToAdd, $oldDays)) {
-            $oldDays[] = $dayToAdd;
-        }
-        
-        return Static::getWeekPattern($oldDays);
     }
 
 }

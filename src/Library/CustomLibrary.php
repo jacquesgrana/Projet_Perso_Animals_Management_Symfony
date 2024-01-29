@@ -22,5 +22,26 @@ class CustomLibrary {
                 return "";
         }
     }
+
+    public static function getColorFromPriority($priorityName): string {
+        //dd($this->getPriority()->getName());
+        switch ($priorityName) {
+            case 'Non Urgente' :
+                return 'green';
+                break;
+            case 'Normale' :
+                return 'blue';
+                break;
+            case 'Urgente' :
+                return 'orange';
+                break;
+            case 'Très Urgente' :
+                return 'red';
+                break;
+            default :
+                return 'white';
+                break;
+        }
+    }
 }
 ?>

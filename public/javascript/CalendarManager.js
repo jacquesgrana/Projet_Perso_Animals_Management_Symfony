@@ -38,6 +38,7 @@ class CalendarManager {
                     
                 }
             });
+            /*
             //console.log('eventsToShow :', this.eventsToShow);
             this.eventsToShow.forEach((event) => {
                 // add event.duration to event.start to calculate end
@@ -58,10 +59,107 @@ class CalendarManager {
                     status: event.status,
                     category: event.category,
                     animals: event.animals,
+                    patternNumber: event.patternNumber,
+                    weekPattern: event.weekPattern,
                     backgroundColor: Library.getColorFromPriority(event.priority),
                     
                 });
             });
+*/
+
+            /*
+            // boucle sur eventsToShow avec event
+                // si event.patternsNumber > 0
+                    
+                    // boucle sur patternsNumber j de 1 à event.patternNumber
+                        
+                        // determiner le 'Lundi' de la semaine de l'event
+                        // boucle de 0 a 7 sur i
+                            // si tableau du event.weekPatter[i] === '1'
+                            
+                                // calcul du décalage : i + (j-1)*7
+                                // calcul du jour : lundi + decalage
+                                // si jour ==  jour du event.start 
+                                    // ajout de l'event de ce jour la avec mention que c'est l'event racine
+                                // si jour >= jour du event.start
+                                    // ajout de l'event de ce jour la avec mention que ce n'est pas l'event racine
+                        
+
+            */
+
+                                    
+           // traduction en js du code ci-dessus
+           this.eventsToShow.forEach((event) => {
+                //console.log('event :', event);
+               if (event.patternsNumber > 0) {
+                    for (let j = 1; j <= event.patternsNumber; j++) {
+                        // determiner le 'Lundi' de la semaine de l'event
+                        const eventDate = event.start;
+                        // Convertissez la chaîne en objet moment
+                        const eventStart = moment(eventDate, 'YYYY-MM-DD HH:mm:ss');
+                        const hours = eventStart.hours();
+                        const minutes = eventStart.minutes();
+                        const seconds = eventStart.seconds();
+                        const minutDuration = event.duration;
+                        // Obtenez le lundi de la semaine de la date
+                        const mondayOfTheWeek = eventStart.clone().startOf('isoWeek');
+
+                        // Affichez la date du lundi
+                        //console.log('lundi de la semaine :', mondayOfTheWeek.format('YYYY-MM-DD HH:mm:ss'));
+
+                        //console.log('eventDate :', eventDate);
+                        const weekPattern = event.weekPattern.split(';');
+        
+                        for (let i = 0; i < 7; i++) {
+                            if (weekPattern[i] === '1') {
+                                const deltaDay = i + (j - 1) * 7;
+                                const dayObject = mondayOfTheWeek.clone().add(deltaDay, 'days');
+                                dayObject.hours(hours).minutes(minutes).seconds(seconds);
+                                const eventEnd = dayObject.clone().add(minutDuration, 'minutes');
+                                
+                                if (eventDate === dayObject.format('YYYY-MM-DD HH:mm:ss')) {
+                                    calendar.addEvent({
+                                        title: `R: ${event.name}`,
+                                        start: dayObject.format('YYYY-MM-DD HH:mm:ss'),
+                                        end: eventEnd.format('YYYY-MM-DD HH:mm:ss'),
+                                        id: event.id,
+                                        comment: event.comment,
+                                        priority: event.priority,
+                                        status: event.status,
+                                        category: event.category,
+                                        animals: event.animals,
+                                        patternNumber: event.patternNumber,
+                                        weekPattern: event.weekPattern,
+                                        backgroundColor: Library.getColorFromPriority(event.priority),
+                                    });
+                                    //console.log('event racine :', dayObject.format('YYYY-MM-DD HH:mm:ss'));
+                                }
+                                else if (dayObject.isAfter(eventStart)) {
+                                    calendar.addEvent({
+                                        title: `C: ${event.name}`,
+                                        start: dayObject.format('YYYY-MM-DD HH:mm:ss'),
+                                        end: eventEnd.format('YYYY-MM-DD HH:mm:ss'),
+                                        id: event.id,
+                                        comment: event.comment,
+                                        priority: event.priority,
+                                        status: event.status,
+                                        category: event.category,
+                                        animals: event.animals,
+                                        patternNumber: event.patternNumber,
+                                        weekPattern: event.weekPattern,
+                                        backgroundColor: Library.getColorFromPriority(event.priority),
+                                    });
+                                    //console.log('event non racine :', dayObject.format('YYYY-MM-DD HH:mm:ss'));
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+
+            // Afficher un popup avec les détails de l'événement
             calendar.setOption('eventClick',(info) => {
                 //console.log('animals', info.event.extendedProps.animals);
                 // Afficher un popup avec les détails de l'événement

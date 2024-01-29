@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: rgb(72, 111, 218);
+    /*background-color: rgb(72, 111, 218);*/
+    background-color: rgb(6, 36, 116);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0;
@@ -25,7 +26,8 @@ body {
     flex-wrap: wrap;
     width: 100vw;
     min-height: 140px;
-    background-color: rgb(20, 58, 160);
+    background-color:rgb(2, 22, 77);
+    /*background-color: rgb(20, 58, 160);*/
 }
 
 .header h1 {
@@ -60,7 +62,8 @@ body {
     flex-wrap: wrap;
     width: 100vw;
     min-height: 50px;
-    background-color: rgb(20, 58, 160); 
+    /*background-color: rgb(20, 58, 160); */
+    background-color:rgb(2, 22, 77);
     margin-top: 20px;
 }
 
@@ -101,11 +104,11 @@ body {
     margin-top: 30px;
     margin-bottom: 10px;
     padding: 15px;
-    background-color: rgb(20, 58, 160);
+    background-color: rgb(2, 22, 77);
     border-radius: 5px;
     color: white;
     text-decoration: none;
-    border: 1px solid rgb(20, 58, 160);
+    border: 1px solid rgb(2, 22, 77);
 }
 
 .event-list-option:hover,
@@ -121,6 +124,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: white;
 }
 
 .login-input {
@@ -138,12 +142,12 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
-    background-color: rgb(20, 58, 160);
+    background-color: rgb(2, 22, 77);
     border-radius: 5px;
     color: white;
     text-decoration: none;
     font-size: small;
-    border: 1px solid rgb(20, 58, 160);
+    border: 1px solid rgb(2, 22, 77);
 }
 
 .btn-form:hover,
@@ -151,7 +155,7 @@ body {
     cursor: pointer;
     color: orange;
     border: 1px solid orange;
-    background-color: rgb(2, 22, 77);
+    background-color: rgb(20, 58, 160);
 }
 .link-event-list,
 .link-animal-list {
@@ -163,10 +167,11 @@ body {
     margin-top: 10px;
     margin-bottom: 5px;
     padding: 5px;
-    background-color: rgb(20, 58, 160);
+    background-color: rgb(2, 22, 77);
     border-radius: 5px;
-    color: white;
-    border: 1px solid rgb(20, 58, 160);
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
+
 }
 
 .action-event-list:hover,
@@ -174,6 +179,7 @@ body {
     cursor: pointer;
     color: orange;
     border: 1px solid orange;
+    background-color: rgb(20, 58, 160);
 }
 
 .table {
@@ -182,19 +188,20 @@ body {
     margin: 0 auto;
     margin-bottom: 20px;
     border-collapse: collapse;
-
+    color: rgb(189, 202, 236);
     th, td {
         padding: 10px;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        font-size: small;
+        border-bottom: 1px solid rgb(207, 179, 126);
      }
      
      tr:nth-child(even) {
-        background-color: rgba(20, 58, 160, 0.15); /* Teinte claire */
+        background-color: rgba(2, 22, 77, 0.8);
      }
      
      tr:nth-child(odd) {
-        background-color: rgba(20, 58, 160, 0.3); /* Teinte plus foncée */
+        background-color:rgb(2, 22, 77);
      }    
  }
 
@@ -203,16 +210,24 @@ body {
  }
 
  .select {
-    background-color: rgb(20, 58, 160);
+    background-color: rgb(2, 22, 77);
     border-radius: 5px;
     padding: 10px;
-    color: white;
-
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
     .option {
-        background-color: rgb(20, 58, 160) !important;
+        background-color: rgb(2, 22, 77) !important;
         padding: 10px !important;
+        padding-top: 10px;
+        padding-bottom: 10px;
         color: white;
     }
+ }
+
+ .select:hover {
+    cursor: pointer;
+    color: orange;
+    border: 1px solid orange;
  }
 
  .form-control {
@@ -268,11 +283,23 @@ body {
 
 .text-white {
     color: white;
- }
+}
+
+.text-green {
+    color: green;
+}
+
+.text-blue {
+    color: rgb(20, 58, 160);
+}
 
 .text-orange {
     color: orange;
- }
+}
+
+.text-red {
+    color: red;
+}
 
 
  
