@@ -48,6 +48,7 @@ class AnimalType extends AbstractType
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Genre',
+                'expanded' => true,
             ])
             ->add('category', EntityType::class, [
                 'class' => AnimalCategory::class,
@@ -56,6 +57,7 @@ class AnimalType extends AbstractType
                 },
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Catégorie',
+                'expanded' => true,
             ])
             ->add('master', EntityType::class, [
                 'class' => User::class,
@@ -68,6 +70,7 @@ class AnimalType extends AbstractType
                 'class' => Event::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
                 'attr' => ['class' => 'form-control'],
                 'choices' => $events,
                 'required' => false,

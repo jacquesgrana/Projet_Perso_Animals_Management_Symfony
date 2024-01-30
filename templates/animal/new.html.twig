@@ -3,11 +3,12 @@
 {% block title %}Gestion de mes Animaux • Créer un animal{% endblock %}
 
 {% block body %}
+<div class="wrapper">
     <h2 class="home-title-top text-white">Créer un animal</h2>
 
     {{ include('animal/_form.html.twig') }}
 
     <a class="btn-form" href="{{ path('app_animal_list') }}">Retour à la liste</a>
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
-
+</div>
 {% endblock %}

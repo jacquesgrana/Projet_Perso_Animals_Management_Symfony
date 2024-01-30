@@ -2,9 +2,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="wrapper">
     <h1>Accès non autorisé</h1>
 
     <p>
         Vous n'êtes pas autorisé à accéder à la ressource, <a href="{{ path('app_home') }}">Retour à l'Accueil</a>.
     </p>
+</div>
 {% endblock %}

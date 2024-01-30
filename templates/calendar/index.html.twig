@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous">
 {% endblock %}
 {% block body %}
+<div class="wrapper">
     <h2 class="home-title-top text-white">Voir le calendrier</h2>
     <div id="calendar-holder" data-locale="fr"></div>
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
-
+</div>
     {# Additional JavaScript for this page, if needed #}
 {% endblock %}
 {% block javascripts %}

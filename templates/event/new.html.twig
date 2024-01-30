@@ -3,10 +3,12 @@
 {% block title %}Gestion de mes Animaux • Créer un évènementl{% endblock %}
 
 {% block body %}
+<div class="wrapper">
     <h2 class="home-title-top text-white">Créer un évènemnt</h2>
 
     {{ include('event/_form.html.twig') }}
 
     <a class="btn-form" href="{{ path('app_event_list') }}">Retour à la liste</a>
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+</div>
 {% endblock %}

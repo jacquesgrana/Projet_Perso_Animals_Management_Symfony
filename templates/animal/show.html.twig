@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+<div class="wrapper">
         <h2 class="home-title-top text-white">Voir un animal</h2>
         <p id="emoticon-animal-show">{{ animal.category.emoticon }}</p>
     <table class="table">
@@ -59,6 +60,7 @@
     {{ include('animal/_delete_form.html.twig') }}
     <a class="btn-form" href="{{ path('app_animal_list') }}">Retour à la liste</a>
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+</div>
     {% endblock %}
     {% block javascripts %}
     <script>

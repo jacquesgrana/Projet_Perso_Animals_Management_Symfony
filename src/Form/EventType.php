@@ -56,11 +56,11 @@ class EventType extends AbstractType
             ])
             ->add('duration', null, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Durée',
+                'label' => 'Durée (min)',
             ])
             ->add('patternsNumber', null, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Nb fois (\'0\' -> ∞ infini)',
+                'label' => 'Nb fois (\'0\' : ∞ infini)',
                 'constraints' => [
                     new Range([
                         'min' => 0,
@@ -97,18 +97,21 @@ class EventType extends AbstractType
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],               
                 'label' => 'Catégorie',
+                'expanded' => true,
             ])
             ->add('status', EntityType::class, [
                 'class' => EventStatus::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Status',
+                'expanded' => true,
             ])
             ->add('priority', EntityType::class, [
                 'class' => EventPriority::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Priorité',
+                'expanded' => true,
             ])
             ->add('animals', EntityType::class, [
                 'class' => Animal::class,

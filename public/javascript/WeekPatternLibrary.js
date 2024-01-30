@@ -19,24 +19,6 @@ class WeekPatternLibrary {
         return weekPatternNames;
     }
 
-
-    // traduire la derniere fonction du php vers du javascript
-    // public static function getWeekPattern($weekPatternNames): string{
-    //     $weekPattern = '';
-    //     for ($i = 0; $i < 7; $i++) {
-    //         if(in_array(self::$weekNames[$i], $weekPatternNames)) {
-    //             $weekPattern .= '1;';
-    //         } else {
-    //             $weekPattern .= '0;';
-    //         }
-    //         //
-    //     }
-    //     $weekPattern = substr($weekPattern, 0, -1);
-    //     //dd($weekPattern);
-    //     return $weekPattern;
-    // }
-
-    //traduction en javascript :
     static getWeekPattern(weekPatternNames) {
         let weekPattern = '';
         for (let i = 0; i < 7; i++) {
@@ -50,19 +32,6 @@ class WeekPatternLibrary {
         return weekPattern;
     }
 
-    /*
-            // fonction qui ajoute à un pattern un jour de la semaine
-        public static function getPatternAfterAddDay($weekPattern, $dayToAdd): string{
-            $oldDays = Static::getDayNames($weekPattern);
-            if (!in_array($dayToAdd, $oldDays)) {
-                $oldDays[] = $dayToAdd;
-            }
-            
-            return Static::getWeekPattern($oldDays);
-        }
-    */
-
-    //traduction en javascript :
     static getPatternAfterAddDay(weekPattern, dayToAdd) {
         const oldDays = WeekPatternLibrary.getDayNames(weekPattern);
         if (!oldDays.includes(dayToAdd)) {
@@ -71,7 +40,7 @@ class WeekPatternLibrary {
         return WeekPatternLibrary.getWeekPattern(oldDays);
     }
 
-    
+
 }
 
 

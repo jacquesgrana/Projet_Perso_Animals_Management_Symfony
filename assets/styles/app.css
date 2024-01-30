@@ -84,7 +84,7 @@ body {
     flex-grow: 1;
 }
 
-.home-wrapper {
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,6 +230,10 @@ body {
     border: 1px solid orange;
  }
 
+ main form label {
+    color: white;
+ }
+
  .form-control {
     background-color: hsl(224, 59%, 68%);
     display: flex;
@@ -238,6 +242,12 @@ body {
     border-radius: 5px;
     border: 1px solid white;
     padding: 5px;
+    width: 100%;
+    max-width: 1200px;
+ }
+
+ .form-control label {
+    color: rgb(2, 22, 77);
  }
 
  #emoticon-animal-show {

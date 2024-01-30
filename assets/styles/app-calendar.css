@@ -81,6 +81,14 @@ body {
     flex-grow: 1;
 }
 
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
 .title-top,
 .home-title-top {
     margin-top: 60px;
@@ -119,7 +127,7 @@ body {
 }
 
 .text-orange {
-    color: orange;
+    color: rgb(255, 170, 11);
 }
 
 .text-red {
@@ -127,24 +135,31 @@ body {
 }
 
 .bg-green {
-    background-color: green;
+    background-color: rgb(37, 156, 37);
 }
 
 .bg-blue {
-    background-color: rgb(30, 74, 194);
+    background-color:rgb(34, 69, 167);
 }
 
 .bg-red {
-    background-color: red;
+    background-color: rgb(255, 57, 57);
 }
 
 .bg-orange {
-    background-color: orange;
+    background-color: rgb(211, 137, 0);
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-black {
+    background-color: black;
 }
 
  
- .calendar-class {
-    background-color: rgb(2, 22, 77) !important;
+.calendar-class {
     color: white !important;
     border: 1px solid rgb(2, 22, 77);
  }
@@ -181,6 +196,27 @@ body {
     border-color: orange !important;
 }
 
+.select {
+    background-color: rgb(2, 22, 77);
+    border-radius: 5px;
+    padding: 10px;
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
+    .option {
+        background-color: rgb(2, 22, 77) !important;
+        padding: 10px !important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+    }
+ }
+
+ .select:hover {
+    cursor: pointer;
+    color: orange;
+    border: 1px solid orange;
+ }
+
 /* Tableau de l'alerte */
 
 #table-alert-event {
@@ -188,22 +224,22 @@ body {
     font-size: small;
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid rgb(2, 22, 77);
+    border: 1px solid white;
     border-radius: 5px; /* Coins arrondis du tableau */
 }
 
 .row-table-alert-event {
-    background-color: rgb(20, 58, 160); /* Couleur de fond par défaut */
+    background-color: rgb(14, 40, 110); /* Couleur de fond par défaut */
     text-align: left;
 }
 
 .row-table-alert-event:nth-child(even) {
-    background-color: rgb(48, 90, 206); /* Couleur de fond pour les lignes paires */
+    background-color: rgb(15, 46, 131); /* Couleur de fond pour les lignes paires */
 }
 
 .row-table-alert-event td {
     padding: 8px;
-    border-bottom: 1px solid rgb(2, 22, 77); /* Bordure inférieure des cellules */
+    border-bottom: 1px solid white; /* Bordure inférieure des cellules */
 }
 
 .row-table-alert-event:last-child td {

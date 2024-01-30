@@ -1,8 +1,11 @@
 class CalendarManager {
 
+    static MAX_WEEK_NUMBER = 100;
+
     eventsToShow = [];
     constructor(eventsToShow) {
         this.eventsToShow = eventsToShow;
+        //console.log('eventsToShow', this.eventsToShow);
     }
 
     run() {
@@ -11,7 +14,7 @@ class CalendarManager {
             const calendarEl = document.getElementById('calendar-holder');
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 editable: true,
-                eventClassNames: ['calendar-class'],
+                eventClassNames: ['calendar-class'],               
         
                 // Your FullCalendar options go here
                 // ...
@@ -38,61 +41,13 @@ class CalendarManager {
                     
                 }
             });
-            /*
-            //console.log('eventsToShow :', this.eventsToShow);
-            this.eventsToShow.forEach((event) => {
-                // add event.duration to event.start to calculate end
-                const endDate = new Date(event.start);
-                const durationInMinutes = event.duration;
-                const hours = Math.floor(durationInMinutes / 60);
-                const minutes = durationInMinutes % 60;
-                endDate.setHours(endDate.getHours() + hours);
-                endDate.setMinutes(endDate.getMinutes() + minutes);
-                endDate.setDate(endDate.getDate());
-                calendar.addEvent({
-                    title: `${event.name}`,
-                    start: event.start,
-                    end: endDate,
-                    id: event.id,
-                    comment: event.comment,
-                    priority: event.priority,
-                    status: event.status,
-                    category: event.category,
-                    animals: event.animals,
-                    patternNumber: event.patternNumber,
-                    weekPattern: event.weekPattern,
-                    backgroundColor: Library.getColorFromPriority(event.priority),
-                    
-                });
-            });
-*/
-
-            /*
-            // boucle sur eventsToShow avec event
-                // si event.patternsNumber > 0
-                    
-                    // boucle sur patternsNumber j de 1 à event.patternNumber
-                        
-                        // determiner le 'Lundi' de la semaine de l'event
-                        // boucle de 0 a 7 sur i
-                            // si tableau du event.weekPatter[i] === '1'
-                            
-                                // calcul du décalage : i + (j-1)*7
-                                // calcul du jour : lundi + decalage
-                                // si jour ==  jour du event.start 
-                                    // ajout de l'event de ce jour la avec mention que c'est l'event racine
-                                // si jour >= jour du event.start
-                                    // ajout de l'event de ce jour la avec mention que ce n'est pas l'event racine
-                        
-
-            */
-
                                     
-           // traduction en js du code ci-dessus
            this.eventsToShow.forEach((event) => {
-                //console.log('event :', event);
-               if (event.patternsNumber > 0) {
-                    for (let j = 1; j <= event.patternsNumber; j++) {
+               if (event.patternsNumber >= 0) {
+                    let patternsNumber = event.patternsNumber === 0 ? CalendarManager.MAX_WEEK_NUMBER : event.patternsNumber;
+                    let repeatedEventCounter = 0;
+                    let eventWeekCounter = 0;
+                    for (let j = 1; j <= patternsNumber; j++) {
                         // determiner le 'Lundi' de la semaine de l'event
                         const eventDate = event.start;
                         // Convertissez la chaîne en objet moment
@@ -109,9 +64,10 @@ class CalendarManager {
 
                         //console.log('eventDate :', eventDate);
                         const weekPattern = event.weekPattern.split(';');
-        
+                        eventWeekCounter++;
                         for (let i = 0; i < 7; i++) {
                             if (weekPattern[i] === '1') {
+                                
                                 const deltaDay = i + (j - 1) * 7;
                                 const dayObject = mondayOfTheWeek.clone().add(deltaDay, 'days');
                                 dayObject.hours(hours).minutes(minutes).seconds(seconds);
@@ -119,7 +75,7 @@ class CalendarManager {
                                 
                                 if (eventDate === dayObject.format('YYYY-MM-DD HH:mm:ss')) {
                                     calendar.addEvent({
-                                        title: `R: ${event.name}`,
+                                        title: `${event.name} J0S${eventWeekCounter}`,
                                         start: dayObject.format('YYYY-MM-DD HH:mm:ss'),
                                         end: eventEnd.format('YYYY-MM-DD HH:mm:ss'),
                                         id: event.id,
@@ -130,13 +86,20 @@ class CalendarManager {
                                         animals: event.animals,
                                         patternNumber: event.patternNumber,
                                         weekPattern: event.weekPattern,
+                                        weekNumber: eventWeekCounter,
+                                        repeatNumber: 0,
                                         backgroundColor: Library.getColorFromPriority(event.priority),
+                                        classNames: [`bg-${Library.getColorFromPriority(event.priority)}`],
+ 
                                     });
+
+                                    
                                     //console.log('event racine :', dayObject.format('YYYY-MM-DD HH:mm:ss'));
                                 }
                                 else if (dayObject.isAfter(eventStart)) {
+                                    repeatedEventCounter++;
                                     calendar.addEvent({
-                                        title: `C: ${event.name}`,
+                                        title: `${event.name} J${repeatedEventCounter}S${eventWeekCounter}`,
                                         start: dayObject.format('YYYY-MM-DD HH:mm:ss'),
                                         end: eventEnd.format('YYYY-MM-DD HH:mm:ss'),
                                         id: event.id,
@@ -147,7 +110,10 @@ class CalendarManager {
                                         animals: event.animals,
                                         patternNumber: event.patternNumber,
                                         weekPattern: event.weekPattern,
+                                        weekNumber: eventWeekCounter,
+                                        repeatNumber: repeatedEventCounter,
                                         backgroundColor: Library.getColorFromPriority(event.priority),
+                                        classNames: [`bg-${Library.getColorFromPriority(event.priority)}`],
                                     });
                                     //console.log('event non racine :', dayObject.format('YYYY-MM-DD HH:mm:ss'));
                                 }
@@ -181,6 +147,12 @@ class CalendarManager {
                                 <td>${this.formatDateFct(info.event.end)}</td>
                             </tr>
                             <tr class="row-table-alert-event">
+                                <td class="text-orange">Semaine n° :</td> <td>${info.event.extendedProps.weekNumber}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Rappel n° :</td> <td>${info.event.extendedProps.repeatNumber === 0 ? 'événement initial' : info.event.extendedProps.repeatNumber}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
                                 <td class="text-orange">Priorité :</td>
                              <td><span class="icon-priority-alert-event bg-${Library.getColorFromPriority(info.event.extendedProps.priority)}"></span>  ${info.event.extendedProps.priority}</td>
                             </tr>
@@ -191,6 +163,15 @@ class CalendarManager {
                             <tr class="row-table-alert-event">
                                 <td class="text-orange">Catégorie :</td>
                                 <td>${info.event.extendedProps.category}</td>
+                            </tr>
+                            <tr class="row-table-alert-event">
+                                <td class="text-orange">Rappel :</td>
+                                <td>
+                                    <select class="select">
+                                    ${WeekPatternLibrary.getDayNames(info.event.extendedProps.weekPattern).map((day) => `<option class="option" value="${day}">${day}</option>`)})}
+                                    </select>
+
+                                </td>
                             </tr>
                             <tr class="row-table-alert-event">
                                 <td class="text-orange">Animaux :</td>
@@ -227,19 +208,17 @@ formatDateFct = function(date) {
         month: 'long',
         year: 'numeric',
         hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short'
+        minute: 'numeric'
     };
 
     return new Intl.DateTimeFormat('fr-FR', options).format(date);
 }
 
-// Fonction pour formater la liste d'animaux avec des balises <ul> et <li>
+// Fonction pour formater la liste d'animaux
 formatAnimalListFct = function(animals) {
     if (animals && animals.length > 0) {
-        const animalListItems = animals.map(animal => `<div>${animal}</div>`).join('');
-        return `<div>${animalListItems}</div>`;
+        const animalListItems = animals.map(animal => `<option class="option" value="${animal}">${animal}</option>`).join('');
+        return `<select class="select">${animalListItems}</select>`;
     } else {
         return '<div>Aucun animal spécifié</div>';
     }
