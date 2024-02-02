@@ -90,6 +90,7 @@ body {
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 100vw;
 }
 
 .title-top,
@@ -235,7 +236,8 @@ body {
  }
 
  .form-control {
-    background-color: hsl(224, 59%, 68%);
+    background-color: rgb(2, 22, 77);
+    color:white;
     display: flex;
     margin-bottom: 20px;
     gap: 20px;
@@ -247,7 +249,7 @@ body {
  }
 
  .form-control label {
-    color: rgb(2, 22, 77);
+    color: white;
  }
 
  #emoticon-animal-show {
@@ -274,6 +276,117 @@ body {
     display: inline-block;
     margin-bottom: -2px;
 }
+
+/* page mail ********************************************************** */
+
+.input-container-mail {
+    max-width: 1200px;
+    width: 40vw;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.input-div-mail {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+    align-items: center;
+    justify-self: start;
+}
+
+.label-mail {
+    color: white;
+}
+
+.input-mail {
+    background-color: rgb(2, 22, 77);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#btn-div-mail {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.text-p-mail {
+    margin-top: 20px;
+    color: white;
+    font-size: large;
+    max-height: fit-content;
+}
+
+.btn-div-mail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 5px;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+/* Ajout de styles personnalisés pour l'alerte SweetAlert2 */
+
+.custom-swal-container {
+    background-color: rgba(20, 58, 160, 0.5) !important;
+    color: white !important;
+    /* Ajoutez vos styles personnalisés pour le conteneur principal de l'alerte ici */
+}
+
+.custom-swal-popup {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: rgb(5, 36, 119);
+    border-radius: 10px;
+    border: 1px solid rgb(2, 22, 77);
+    color: white !important;
+
+}
+/*
+.custom-swal-header {
+}*/
+
+.custom-swal-title {
+    /* Ajoutez vos styles personnalisés pour le titre de l'alerte ici */
+    color: white;
+}
+
+.custom-swal-confirm-button {
+    background-color: rgb(20, 58, 160) !important;
+    border: 1px solid rgb(2, 22, 77) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.custom-swal-confirm-button:hover {
+    background-color: rgb(2, 22, 77) !important;
+    color: orange !important;
+    border-color: orange !important;
+    box-shadow: none !important;
+}
+/*
+.custom-swal-content {
+}*/
+
+.swal2-icon {
+    background-color: rgba(2, 22, 77, 0.75);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.alert-h3-mail {
+    margin-bottom: 20px;
+}
+
+/* gestion des couleurs du site ****************************************** */
 
 .bg-green {
     background-color: green;

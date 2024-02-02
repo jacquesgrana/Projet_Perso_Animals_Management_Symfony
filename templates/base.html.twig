@@ -9,6 +9,9 @@
         {% endblock %}
             {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js" integrity="sha256-xkymBp70qMSHnInLEXDWb34pyON8sBGMA1S84vQILx4=" crossorigin="anonymous"></script>
+            <script src="{{ asset('javascript/RequestManager.js') }}"></script>
+            <script src="{{ asset('javascript/MailManager.js') }}"></script>
             {% endblock %}
 
     </head>
@@ -26,7 +29,7 @@
                     <span class="text-orange"> • </span>
                     <span><a href="{{ path('app_animal_list') }}">Animaux</a></span>
                     <span class="text-orange"> • </span>
-                    <span><a href="{{ path('app_event_list') }}">Evènements</a></span>
+                    <span><a href="{{ path('app_event_list') }}">Evénements</a></span>
                     <span class="text-orange"> • </span>
                     <span><a href="{{ path('app_calendar_show') }}">Calendrier</a></span>
                     <span class="text-orange"> • </span>
@@ -41,6 +44,6 @@
     <footer class="footer">
         <p class="text-white"><span class="text-orange">&copy;</span> Gestion de mes Animaux <span class="text-orange">•</span> 2024</p>
     </footer>
-
+        {% block additional_javascripts %}{% endblock %}
     </body> 
 </html>

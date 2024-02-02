@@ -49,6 +49,9 @@ security:
         - { path: '^/event/{id}', roles: ROLE_USER }    
         - { path: '^/events/list', roles: ROLE_USER }
         - { path: '^/calendar', roles: ROLE_USER }
+        - { path: '^/mail/manager', roles: ROLE_USER }
+        - { path: '^/mail/day/get', roles: ROLE_USER }
+        - { path: '^/mail/week/get', roles: ROLE_USER }
 
 when@test:
     security:

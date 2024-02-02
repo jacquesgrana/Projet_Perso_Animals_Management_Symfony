@@ -1,13 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MailManagerController!{% endblock %}
+{% block title %}Gestion de mes Animaux • Mails{% endblock %}
 
 {% block body %}
-
 <div class="wrapper">
     <h2 class="home-title-top text-white">Gérer mes mails</h2>
 
+    <form class="input-container-mail">
+        <div class="btn-div-mail">
+            <p class="text-p-mail">Réglages</p>
+            <div class="input-div-mail">
+                <label class="label-mail" for="input-email-mail">Destination</label>
+                <input class="input-mail" type="email" id="input-email-mail" name="input-email-mail" value="{{ userEmail }}"/>
+            </div>
+            <div class="input-div-mail">
+                <label class="label-mail" for="input-day-mail">Jour</label>
+                <input class="input-mail link-event-list" type="date" id="input-date-mail" name="input-date-mail" value="{{ currentDate }}"/>
+            </div>
+        </div>
+        <div class="btn-div-mail">
+            <p class="text-p-mail">Evénements du jour</p>
+            <div id="btn-div-mail">
+                <a class="btn-form" href="{{ path('app_mail_manager') }}">Envoyer email</a>
+                <button type="button" id="btn-view-events-day" class="btn-form">👁</button>
+            </div>
+        </div>
+        <div class="btn-div-mail">
+            <p class="text-p-mail">Evénements de la semaine</p>
+            <div id="btn-div-mail">
+                <a class="btn-form" href="{{ path('app_mail_manager') }}">Envoyer email</a>
+                <button type="button" id="btn-view-events-week" class="btn-form">👁</button>
+            </div>
+        </div>
+        <div class="btn-div-mail">
+            <p class="text-p-mail">Evénements du mois</p>
+            <div id="btn-div-mail">
+                <a class="btn-form" href="{{ path('app_mail_manager') }}">Envoyer email</a>
+                <button type="button" id="btn-view-events-month" class="btn-form">👁</button>
+            </div>
+        </div>
+    </form>
 
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
 </div>
+{% endblock %}
+{% block additional_javascripts %}
+<script>
+var userEmail = "{{ userEmail }}";
+var userPseudo = "{{ userPseudo }}";
+var mailManager = new MailManager(userEmail, userPseudo);
+mailManager.run();
+</script>
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion de mes Animaux • Liste de mes évènements{% endblock %}
+{% block title %}Gestion de mes Animaux • Liste de mes événements{% endblock %}
 
 {% block body %}
 <div class="wrapper">
 
-   <h2 class="home-title-top text-white">Liste de mes évènements</h2>
+   <h2 class="home-title-top text-white">Liste de mes événements</h2>
    <table class="table">
       <thead>
           <tr class="text-orange">
@@ -65,12 +65,12 @@
               </tr>
           {% else %}
               <tr>
-                 <td colspan="10">Aucun évènement trouvé.</td>
+                 <td colspan="10">Aucun événement trouvé.</td>
               </tr>
           {% endfor %}
       </tbody>
   </table>
-  <a class="btn-form" href="{{ path('app_event_new') }}">Créer un évènement</a>
+  <a class="btn-form" href="{{ path('app_event_new') }}">Créer un événement</a>
   <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
 
 </div>

@@ -45,7 +45,24 @@ public function findEventsByAnimal(Animal $animal): array
         ->getResult();
 }
 
- 
+public function findEventsByDayAndUser($day, $user): array { 
+    // créer $date à partir de $day qui est au format '2021-01-01'
+    $date = new \DateTime($day);
+    $end = clone $date;
+    $end->modify('+1 day');
+    $date->setTime(0, 0, 0); // Set time to midnight
+    //dd($date, $end);
+    return $this->createQueryBuilder('e')
+        ->where('e.start >= :dateStart')
+        ->andWhere('e.start < :dateEnd')
+        ->andWhere('e.user = :user')
+        ->setParameter('dateStart', $date)
+        ->setParameter('dateEnd', $end)
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
+
 
 
 //    /**
