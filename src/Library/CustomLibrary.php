@@ -43,5 +43,24 @@ class CustomLibrary {
                 break;
         }
     }
+
+    public static function getMailTypeTitle($type): string {
+        $typeName = '';
+        switch ($type) {
+            case 'DAY' :
+                $typeName = 'du Jour';
+                break;
+            case 'WEEK' :
+                $typeName = 'de la Semaine';
+                break;
+            case 'MONTH' :
+                $typeName = 'du Mois';
+                break;
+            default :
+                $typeName = '';
+                break;
+        }
+        return $typeName;
+    }
 }
 ?>

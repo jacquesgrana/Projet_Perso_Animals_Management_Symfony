@@ -17,15 +17,15 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js" integrity="sha256-J37ZtjEw94oWBNZ9w/XC73raGXE9t10//XHJfKz2QCM=" crossorigin="anonymous"></script>
     <script src="{{ asset('locales/locale-full-calendar-fr.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js" integrity="sha256-xkymBp70qMSHnInLEXDWb34pyON8sBGMA1S84vQILx4=" crossorigin="anonymous"></script>
-    <script src="{{ asset('javascript/Library.js') }}"></script>
-    <script src="{{ asset('javascript/CalendarManager.js') }}"></script>
-    <script src="{{ asset('javascript/WeekPatternLibrary.js') }}"></script>
+    <script src="{{ asset('javascript/library/Library.js') }}"></script>
+    <script src="{{ asset('javascript/manager/CalendarManager.js') }}"></script>
+    <script src="{{ asset('javascript/library/WeekPatternLibrary.js') }}"></script>
     <!-- Ajoutez cette ligne à votre fichier HTML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <script>
-    const eventsToShow = {{ eventsToLoad | raw }};
-    let calendarManager = new CalendarManager(eventsToShow);
+    var eventsToShowDatas = {{ eventsToLoad | raw }};
+    var calendarManager = new CalendarManager(eventsToShowDatas);
     calendarManager.run();
     </script>
 

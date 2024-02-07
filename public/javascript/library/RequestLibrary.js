@@ -1,4 +1,4 @@
-class RequestManager {
+class RequestLibrary {
 
     static getDayEventsFromDay = async (day) => {
         //console.log('getEventsForDay', day);
@@ -68,4 +68,48 @@ class RequestManager {
             return [];
         });
     }
+
+
+    // faire requete pour envoyer un mail
+    // de type post sur /mail/day/send
+    // avec le body : emailDest et day
+    static sendMailDay(emailDest, day) {
+        //console.log('sendMailDay', emailDest, day);
+        const url = '/mail/day/send';
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+            'credentials': 'include'
+        });
+        const body = {
+            'emailDest': emailDest,
+            'day': day
+        }
+        console.log('body', body);
+        return fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body)
+        })
+        // retourner le statut de la requete + texte de confirmation
+        .then(response => {
+            if (response.ok) {
+                return response.text().then(text => {
+                    return {
+                        status: response.status,
+                        confirmation: text
+                    };
+                });
+            } else {
+                throw new Error('Request failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            return {
+                status: 500,
+                confirmation: 'Request failed'
+            };
+        });
+    }
+    
 }

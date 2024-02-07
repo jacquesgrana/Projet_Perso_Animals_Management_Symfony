@@ -359,6 +359,28 @@ body {
     color: white;
 }
 
+/* marche pas */
+.custom-swal-icon {
+    color: red !important;
+    background-color: orange !important;
+}
+
+/* marche pas */
+.custom-swal-cancel-button {
+    background-color: rgb(211, 137, 0) !important;
+    border: 1px solid orangered !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+/* marche pas */
+.custom-swal-cancel-button:hover {
+    background-color: orangered !important;
+    color: white !important;
+    border-color: white !important;
+    box-shadow: none !important;
+}
+
 .custom-swal-confirm-button {
     background-color: rgb(20, 58, 160) !important;
     border: 1px solid rgb(2, 22, 77) !important;

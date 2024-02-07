@@ -28,5 +28,7 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'calendar.SET_DATA', method: 'onCalendarSetData' }
 
+    App\Twig\FrenchDateExtension:
+        tags: ['twig.extension']
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
