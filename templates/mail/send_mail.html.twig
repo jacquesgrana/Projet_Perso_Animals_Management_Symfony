@@ -1,22 +1,82 @@
 {# mail/mail.twig.html #}
+{# Exemple de CSS interne dans un email HTML #}
+<head>
+    <style>
+        .h3-title {
+            color : rgb(5, 36, 119);
+            font-weight: bold;
+        }
+        .td-property-name { 
+            color : rgb(5, 36, 119);
+            font-weight: bold; 
+            text-align: end;
+        }
+        .td-property-name {
+            text-align: start;
+        }
+        .td-event {
+            color: green;
+            font-weight: bold;
+            padding-top:  10px;
+        }
+        .td-day {
+            color: red;
+            font-weight: bold; 
+            padding-top:  10px;
+        }
+    </style>
+</head>
 
-<h3 class="text-orange alert-h3-mail">Nombre d'événement(s) : {{ events|length }}</h3>
+
+<h3 class="h3-title">Nombre d'événement(s) : {{ events|length }}</h3>
 
 <table class="table">
+    {% set dayCounter = 0 %}
+    {% set eventCounter = 0 %}
+    {% set oldEvent = null %}
     {% for event in events %}
-        {# ... (your existing HTML structure) #}
+        {% set isNewDay = (oldEvent is null or oldEvent.start|date("Y-m-d") != event.start|date("Y-m-d")) ? true : false %}
+        {% set oldEvent = event %}
+        {% set eventCounter = eventCounter + 1 %}
+        {% if isNewDay %}
         <tr>
-            <th><span class="text-orange"><strong>Nom</strong></span></th>
-            <td>{{ event.name }}</td>
+            <td class="td-day" colspan="2">
+            Jour {{ event.start|frenchDateDay }}
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td class="td-event" colspan="2">
+            Evénement n°{{ eventCounter }} R({{ event.repeatNumber}}) W({{event.weekNumber - 1}})
+            </td>
         </tr>
         <tr>
-            <th><span class="text-orange"><strong>Commentaire</strong></span></th>
-            <td>{{ event.comment }}</td>
+            <td><span class="td-property-name"><strong>Nom</strong></span></td>
+            <td class="td-property-name">{{ event.name }}</td>
         </tr>
         <tr>
-            <th><span class="text-orange"><strong>Début</strong></span></th>
-                <td>{{ event.start|frenchDate }}</td>
+            <td><span class="td-property-name"><strong>Commentaire</strong></span></td>
+            <td class="td-property-name">{{ event.comment }}</td>
         </tr>
-        {# ... (rest of your HTML structure) #}
+        <tr>
+            <td><span class="td-property-name"><strong>Début</strong></span></td>
+                <td class="td-property-name">{{ event.start|frenchDate }}</td>
+        </tr>
+        <tr>
+            <td><span class="td-property-name"><strong>Fin</strong></span></td>
+            <td class="td-property-name">{{ event.end|frenchDate }}</td>
+        </tr>
+        <tr>
+            <td><span class="td-property-name"><strong>Catégorie</strong></span></td>
+            <td class="td-property-name">{{ event.category }}</td>
+        </tr>
+        <tr>
+            <td><span class="td-property-name"><strong>Statut</strong></span></td>
+            <td class="td-property-name">{{ event.status }}</td>
+        </tr>
+        <tr>
+            <td><span class="td-property-name"><strong>Priorité</strong></span></td>
+            <td class="td-property-name">{{ event.priority }}</td>
+        </tr>
     {% endfor %}
 </table>
