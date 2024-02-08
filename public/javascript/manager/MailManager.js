@@ -51,49 +51,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 handleClickBtnSendMailDay = async () => {
     console.log('click send mail day');
-    // afficher fenetre swal de confirmation
-    const result = await Swal.fire({
-        title: 'Confirmation',
-        text: "Veuillez confirmer votre choix",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonText: 'Annuler',
-        confirmButtonText: 'Envoyer email',
-        //confirmButtonColor: '#3085d6',
-        //cancelButtonColor: 'orange',
-        
-        customClass: {
-            icon: 'custom-swal-icon',
-            container: 'custom-swal-container', // classe pour le conteneur principal de l'alerte
-            popup: 'custom-swal-popup', // classe pour la fenêtre popup
-            header: 'custom-swal-header', // classe pour l'en-tête
-            title: 'custom-swal-title', // classe pour le titre
-            content: 'custom-swal-content', // classe pour le contenu
-            cancelButton: 'custom-swal-cancel-button', // classe pour le bouton d'annulation
-            confirmButton: 'custom-swal-confirm-button', // classe pour le bouton de confirmation
-            
-            }
-    });
+    const result = await AlertFacade.displayAndGetConfirm("Veuillez confirmer l'envoi de l'email du jour");
 
     if (result.isConfirmed) {
-        console.log('click confirm send mail day');
-
-        // recupérer l'email de destination et la date du jour
+        console.log('click confirm send day mail');
         const emailDest = document.getElementById('input-email-mail').value;
-
         const day = document.getElementById('input-date-mail').value;
-
-        console.log('emailDest', emailDest, 'day', day);
-        // appeler fonction pour faire requete pour envoyer le mail sur la route /mail/day/send
-        const response = await RequestLibrary.sendMailDay(emailDest, day);
+        const response = await RequestLibrary.sendDayMail(emailDest, day);
         console.log('response', response);
-    }
+        if (response.status === 200) {
+            AlertFacade.displayAlert('Le mail a été envoyé avec succès', 'success');
+        } 
+        else {
+            AlertFacade.displayAlert('Une erreur est survenue', 'error');
+        }
+            
+        }
+}
     
 
-}
+
 
 handleClickBtnSendMailWeek = async () => {
     console.log('click send mail week');
+    const result = await AlertFacade.displayAndGetConfirm("Veuillez confirmer l'envoi de l'email de la semaine");
+
+    if (result.isConfirmed) {
+        console.log('click confirm send week mail');
+        const emailDest = document.getElementById('input-email-mail').value;
+        const day = document.getElementById('input-date-mail').value;
+    }
 }
 
 handleClickBtnSendMailMonth = async () => {
@@ -505,5 +492,32 @@ getCurrentWeekMonday = (date) => {
     date.setDate(difference);
     return date;
 }
+/*
+displayAndGetConfirm = async (text) => {
+    const toReturn = await Swal.fire({
+        title: 'Confirmation',
+        text: text,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Annuler',
+        confirmButtonText: 'Envoyer email',
+        //confirmButtonColor: '#3085d6',
+        //cancelButtonColor: 'orange',
+        
+        customClass: {
+            icon: 'custom-swal-icon',
+            container: 'custom-swal-container', // classe pour le conteneur principal de l'alerte
+            popup: 'custom-swal-popup', // classe pour la fenêtre popup
+            header: 'custom-swal-header', // classe pour l'en-tête
+            title: 'custom-swal-title', // classe pour le titre
+            content: 'custom-swal-content', // classe pour le contenu
+            cancelButton: 'custom-swal-cancel-button', // classe pour le bouton d'annulation
+            confirmButton: 'custom-swal-confirm-button', // classe pour le bouton de confirmation
+            
+            }
+    });
+    return toReturn;
+}
+*/
 
 }

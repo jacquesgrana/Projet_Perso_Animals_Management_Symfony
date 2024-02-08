@@ -73,7 +73,7 @@ class RequestLibrary {
     // faire requete pour envoyer un mail
     // de type post sur /mail/day/send
     // avec le body : emailDest et day
-    static sendMailDay(emailDest, day) {
+    static sendDayMail(emailDest, day) {
         //console.log('sendMailDay', emailDest, day);
         const url = '/mail/day/send';
         const headers = new Headers({

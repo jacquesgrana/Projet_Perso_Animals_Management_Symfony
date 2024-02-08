@@ -24,6 +24,11 @@
             font-weight: bold; 
             padding-top:  10px;
         }
+        .td-week {
+            color: purple;
+            font-weight: bold; 
+            padding-top:  10px;
+        }
     </style>
 </head>
 
@@ -31,17 +36,32 @@
 <h3 class="h3-title">Nombre d'événement(s) : {{ events|length }}</h3>
 
 <table class="table">
-    {% set dayCounter = 0 %}
     {% set eventCounter = 0 %}
     {% set oldEvent = null %}
     {% for event in events %}
         {% set isNewDay = (oldEvent is null or oldEvent.start|date("Y-m-d") != event.start|date("Y-m-d")) ? true : false %}
+        {% set isNewWeek = (isNewDay and event.start|date('N') ==  1) %}
+        {% set isNewMonth = (isNewDay and (oldEvent is null or oldEvent.start|date("m") != event.start|date("m"))) %}
         {% set oldEvent = event %}
         {% set eventCounter = eventCounter + 1 %}
+        {% if isNewMonth %}
+        <tr>
+            <td class="td-week" colspan="2">
+            Mois de : {{ event.start|date("m-Y") }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if isNewWeek %}
+        <tr>
+            <td class="td-week" colspan="2">
+            Semaine du : {{ event.start|frenchDateDay }}
+            </td>
+        </tr>
+        {% endif %}
         {% if isNewDay %}
         <tr>
             <td class="td-day" colspan="2">
-            Jour {{ event.start|frenchDateDay }}
+            Jour : {{ event.start|frenchDateDay }}
             </td>
         </tr>
         {% endif %}
