@@ -92,6 +92,10 @@ class WeekPatternLibrary {
             }
                 
         }
+        // trier $events par $start
+        usort($events, function($a, $b) {
+            return strtotime($a['start']) - strtotime($b['start']);
+        });
         return $events;
     }
 

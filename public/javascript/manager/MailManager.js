@@ -50,11 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });*/
 
 handleClickBtnSendMailDay = async () => {
-    console.log('click send mail day');
+    //console.log('click send mail day');
     const result = await AlertFacade.displayAndGetConfirm("Veuillez confirmer l'envoi de l'email du jour");
 
     if (result.isConfirmed) {
-        console.log('click confirm send day mail');
+        //console.log('click confirm send day mail');
         const emailDest = document.getElementById('input-email-mail').value;
         const day = document.getElementById('input-date-mail').value;
         const response = await RequestLibrary.sendDayMail(emailDest, day);
@@ -66,25 +66,50 @@ handleClickBtnSendMailDay = async () => {
             AlertFacade.displayAlert('Une erreur est survenue', 'error');
         }
             
-        }
+    }
 }
     
 
 
 
 handleClickBtnSendMailWeek = async () => {
-    console.log('click send mail week');
+    //console.log('click send mail week');
     const result = await AlertFacade.displayAndGetConfirm("Veuillez confirmer l'envoi de l'email de la semaine");
 
     if (result.isConfirmed) {
-        console.log('click confirm send week mail');
+        //console.log('click confirm send week mail');
         const emailDest = document.getElementById('input-email-mail').value;
         const day = document.getElementById('input-date-mail').value;
+
+        const response = await RequestLibrary.sendWeekMail(emailDest, day);
+        console.log('response', response);
+        if (response.status === 200) {
+            AlertFacade.displayAlert('Le mail a été envoyé avec succès', 'success');
+        } 
+        else {
+            AlertFacade.displayAlert('Une erreur est survenue', 'error');
+        }
     }
 }
 
 handleClickBtnSendMailMonth = async () => {
-    console.log('click send mail month');
+    //console.log('click send mail month');
+    const result = await AlertFacade.displayAndGetConfirm("Veuillez confirmer l'envoi de l'email du mois");
+
+    if (result.isConfirmed) {
+        //console.log('click confirm send week mail');
+        const emailDest = document.getElementById('input-email-mail').value;
+        const day = document.getElementById('input-date-mail').value;
+
+        const response = await RequestLibrary.sendMonthMail(emailDest, day);
+        console.log('response', response);
+        if (response.status === 200) {
+            AlertFacade.displayAlert('Le mail a été envoyé avec succès', 'success');
+        } 
+        else {
+            AlertFacade.displayAlert('Une erreur est survenue', 'error');
+        }
+    }
 }
 
 handleClickBtnViewDay = async () => {
@@ -107,6 +132,7 @@ handleClickBtnViewDay = async () => {
                 `;
         }
         
+        // intégrer dans la facade : faire fonction displayMailInfoAlert(title, text, icon)
         Swal.fire({
             title : `Evénement(s) du<br />${new Date(day).toLocaleDateString('fr-FR', {
                 weekday: 'long',
@@ -161,6 +187,7 @@ handleClickBtnViewWeek = async () => {
                 `;
         }
 
+        // intégrer dans la facade : faire fonction displayMailInfoAlert(title, text, icon)
         Swal.fire({
             title: `Evénements de la semaine <br />du ${weekStart.toLocaleDateString('fr-FR', {
                 weekday: 'long',
@@ -213,6 +240,8 @@ handleClickBtnViewMonth = async () => {
                 <h3><span class="text-orange">Pas d'événement(s)</span></h3>
                 `;
         }
+
+        // intégrer dans la facade : faire fonction displayMailInfoAlert(title, text, icon)
         Swal.fire({
             title: `Evénements du mois <br />de ${monthName}`,
             html: html,

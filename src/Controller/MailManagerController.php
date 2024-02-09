@@ -70,6 +70,62 @@ class MailManagerController extends AbstractController
         return new JsonResponse(['message' => $result]);
     }
 
+    #[Route('/mail/week/send', name: 'app_mail_week_send')]
+    public function sendWeekEmail(Request $request, MailerService $mailer, EventRepository $eventRepository): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $emailDest = $data['emailDest'] ?? null;
+        $day = $data['day'] ?? null;
+        $user = $this->getUser();
+        $eventsSource = $eventRepository->findEventsForUser($user);
+        $eventsToFilter = [];
+        $eventsToFilter = WeekPatternLibrary::getEventsArrayFromSource($eventsSource);
+
+        $dayObject = new \DateTime($day);
+        $monday = clone $dayObject;
+        $monday->modify('monday this week');
+        $newtMonday = clone $monday;
+        $newtMonday->modify('+7 day');
+
+        $events = [];
+        foreach ($eventsToFilter as $event) {
+            if ($event['start'] >= $monday->format('Y-m-d') && $event['start'] < $newtMonday->format('Y-m-d')) {
+                $events[] = $event;
+            }
+        }
+        $result = $mailer->GenerateAndSendEmail($emailDest, $events, $day, 'WEEK');
+
+        return new JsonResponse(['message' => $result]);
+    }
+
+    #[Route('/mail/month/send', name: 'app_mail_month_send')]
+    public function sendMonthEmail(Request $request, MailerService $mailer, EventRepository $eventRepository): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $emailDest = $data['emailDest'] ?? null;
+        $day = $data['day'] ?? null;
+        $user = $this->getUser();
+        $eventsSource = $eventRepository->findEventsForUser($user);
+        $eventsToFilter = [];
+        $eventsToFilter = WeekPatternLibrary::getEventsArrayFromSource($eventsSource);
+
+        $dayObject = new \DateTime($day);
+        $firstDayOfTheMonth = clone $dayObject;
+        $firstDayOfTheMonth->modify('first day of this month');
+        $firstDayOfTheNextMonth = clone $firstDayOfTheMonth;
+        $firstDayOfTheNextMonth->modify('+1 month');
+
+        $events = [];
+        foreach ($eventsToFilter as $event) {
+            if ($event['start'] >= $firstDayOfTheMonth->format('Y-m-d') && $event['start'] < $firstDayOfTheNextMonth->format('Y-m-d')) {
+                $events[] = $event;
+            }
+        }
+        $result = $mailer->GenerateAndSendEmail($emailDest, $events, $day, 'MONTH');
+
+        return new JsonResponse(['message' => $result]);
+
+    }
 
     #[Route('/mail/day/get', name: 'app_mail_day_events_by_day')]
     public function getDayEventsByDayAndUser(EventRepository $eventRepository): JsonResponse

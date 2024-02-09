@@ -130,6 +130,7 @@ class CalendarManager {
                 //console.log('animals', info.event.extendedProps.animals);
                 // Afficher un popup avec les détails de l'événement
         
+                // faire fonction dans la façade
                 Swal.fire({
                     title: `${info.event.title}`,
                     html: `

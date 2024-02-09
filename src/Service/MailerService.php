@@ -28,9 +28,36 @@ class MailerService
         $user = $this->tokenStorage->getToken()->getUser();
         $pseudo = $user->getPseudo();
         $dayDate = new \DateTime($day);
-        $subject = 'Evénement(s) ' . $typeName . ' ' . $dayDate->format('d/m/Y');
-        //$message = 'Hello!';
-    
+        //$dayString = $dayDate->format('d/m/Y');
+        // TODO améliorer : switch case sur $type : 'DAY', 'WEEK', 'MONTH'
+        //$subject = 'Evénement(s) ' . $typeName . ' ' . $day;
+        $subject = '';
+        switch ($type) {
+            case 'DAY':
+                $subject = 'Evénement(s) ' . $typeName . ' ' . $day;
+                break;
+            case 'WEEK':
+                // calculer la date du lundi et du dimanche de la semaine de $day
+                $monday = clone $dayDate;
+                $monday->modify('monday this week');
+                $sunday = clone $dayDate;
+                $sunday->modify('sunday this week');
+                $subject = 'Evénement(s) ' . $typeName . ' du ' . $monday->format('d/m/Y') . ' au ' . $sunday->format('d/m/Y');
+                //$subject = 'Evénement(s) ' . $typeName . ' ' . $dayString;
+                break;
+            case 'MONTH':
+                // récupérer le nom du mois de $dayDate avec le filtre frenchDateMonth
+                //$monthName = $this->frenchDateExtension->frenchMonthFormat($dayDate);
+                //$monthName = $dayDate->format('F Y');
+                setlocale(LC_TIME, 'fr_FR.UTF-8');
+                $monthName = strftime('%B %Y', $dayDate->getTimestamp());
+                $subject = 'Evénement(s) ' . $typeName . ' de ' . $monthName;
+                break;
+            default:
+                # code...
+                break;
+        }
+
         // Create a TemplatedEmail instead of Email
         $email = (new TemplatedEmail())
             ->from(new Address('inbox.test.jac@free.fr'))

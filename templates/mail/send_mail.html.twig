@@ -47,21 +47,21 @@
         {% if isNewMonth %}
         <tr>
             <td class="td-week" colspan="2">
-            Mois de : {{ event.start|date("m-Y") }}
+            Mois de {{ event.start|frenchDateMonth }}
             </td>
         </tr>
         {% endif %}
         {% if isNewWeek %}
         <tr>
             <td class="td-week" colspan="2">
-            Semaine du : {{ event.start|frenchDateDay }}
+            Semaine du {{ event.start|frenchDateDay }}
             </td>
         </tr>
         {% endif %}
         {% if isNewDay %}
         <tr>
             <td class="td-day" colspan="2">
-            Jour : {{ event.start|frenchDateDay }}
+            Jour {{ event.start|frenchDateDay }}
             </td>
         </tr>
         {% endif %}
