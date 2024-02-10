@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +17,9 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
+/*
+non utilisé ******
+*/
 class AppAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -31,13 +33,13 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
-        
+        dd($email);
         $user = $userRepository->findOneBy(['email' => $email]);
 
 
         // Vérifiez si l'utilisateur existe
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException('User not found.');
+            throw new CustomUserMessageAuthenticationException('User non trouvé.');
         }
         dd($user->getActive());
         // Vérifiez si l'utilisateur est actif

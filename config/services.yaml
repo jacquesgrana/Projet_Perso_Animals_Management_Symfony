@@ -30,6 +30,9 @@ services:
 
     App\Twig\FrenchDateExtension:
         tags: ['twig.extension']
+
+    App\Security\UserChecker:
+        public: true
         
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
