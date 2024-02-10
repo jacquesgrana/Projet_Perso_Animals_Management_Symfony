@@ -50,6 +50,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Event::class)]
     private Collection $events;
 
+    #[ORM\Column(nullable: true)]
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?ConfirmToken $confirmToken = null;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -227,6 +231,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $event->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getConfirmToken(): ?ConfirmToken
+    {
+        return $this->confirmToken;
+    }
+
+    public function setConfirmToken(ConfirmToken $confirmToken): static
+    {
+        // set the owning side of the relation if necessary
+        if ($confirmToken->getUser() !== $this) {
+            $confirmToken->setUser($this);
+        }
+
+        $this->confirmToken = $confirmToken;
 
         return $this;
     }

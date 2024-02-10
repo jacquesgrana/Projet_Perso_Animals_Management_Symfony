@@ -86,6 +86,7 @@ class MailerService
         $pseudo = $user->getPseudo();
         $subject = 'Bienvenue ' . $pseudo;
         // calculer un token de confirmation pour l'utilisateur $user
+        
         // stocker le token dans la base de données
         // ajouter token au context du template de l'email
         /*
