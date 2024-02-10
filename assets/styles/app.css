@@ -110,6 +110,8 @@ body {
     color: white;
     text-decoration: none;
     border: 1px solid rgb(2, 22, 77);
+    width: 250px;
+    text-align: center;
 }
 
 .event-list-option:hover,

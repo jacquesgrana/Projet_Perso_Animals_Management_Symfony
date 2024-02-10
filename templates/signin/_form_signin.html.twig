@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    {#
+    {% if form.email.vars.errors|length >  0 %}
+        <ul class="text-danger">
+            {% for error in form.email.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if form.pseudo.vars.errors|length >  0 %}
+        <ul class="text-danger">
+            {% for error in form.pseudo.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    #}
+
+    <div class="centered">
+        <button class="btn-form">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

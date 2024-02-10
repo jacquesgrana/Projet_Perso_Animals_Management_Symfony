@@ -22,6 +22,7 @@ class MailerService
         $this->mailer = $mailer;
     }
 
+    // TODO changer nom GenerateAndSendEventsEmail
     public function GenerateAndSendEmail($emailDest, $events, $day, $type): string
     {
         $typeName = CustomLibrary::getMailTypeTitle($type);
@@ -79,53 +80,31 @@ class MailerService
             return ('Email ko : ' . $e->getMessage());
         } 
     }
-}
 
-
-/*
-namespace App\Service;
-
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
-
-class MailerService
-{
-    private $mailer;
-
-    public function __construct(MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
-    }
-
-    public function GenerateAndSendEmail($emailDest, $events)
-    {
-        //dd($emailDest, $events);
-        // Création de l'email
-        // recuperer l'user depuis le token
-
-
-        //$pseudo = $user->getPseudo();
-
+    public function GenerateAnsSendConfirmSigninEmail($user): string {
+        $email = $user->getEmail();
+        $pseudo = $user->getPseudo();
+        $subject = 'Bienvenue ' . $pseudo;
+        // calculer un token de confirmation pour l'utilisateur $user
+        // stocker le token dans la base de données
+        // ajouter token au context du template de l'email
+        /*
+        $email = (new TemplatedEmail())
+            ->from(new Address('inbox.test.jac@free.fr'))
+            ->to($email)
+            ->subject($subject)
+            ->htmlTemplate('mail/send_confirm_signin.html.twig')
+            ->context([
+                'pseudo' => $pseudo,
+        ]);
         try {
-            $email = (new TemplatedEmail())
-            
-                ->from('inbox.test.jac@gmail.com')
-                ->to($emailDest)
-                ->subject('Email de test')
-                ->text('Hello!')
-                ->html('<p>Hello!</p>')
-            //->htmlTemplate('registration/confirmation_email.html.twig')
-                ->context([
-                    //'pseudo' => $pseudo,
-                    'events' => $events]);
-
-            // Envoi de l'email
             $this->mailer->send($email);
-            } 
-            catch (\Exception $e) {
-                dd($e);
-            }
+            return ('Email ok');
+        } 
+        catch (TransportExceptionInterface $e) {
+            return ('Email ko : ' . $e->getMessage());
+        }*/
+        return ('Email ok');
     }
 }
-*/
 ?>

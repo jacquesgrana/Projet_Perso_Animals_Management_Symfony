@@ -8,11 +8,11 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté comme : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté comme : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
 
         <h2 class="title-top">Connectez-vous</h2>
         <label class="login-label" for="username">Email</label>
@@ -36,7 +36,7 @@
         #}
 
         <button class="login-btn" type="submit">
-            Connection
+            Connexion
         </button>
     </form>
 {% endblock %}

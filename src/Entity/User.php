@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+// ajouter unicité sur email et pseudo
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -19,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -31,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $pseudo = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -39,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $roles = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
 
     #[ORM\OneToMany(mappedBy: 'master', targetEntity: Animal::class)]
     private Collection $animals;
@@ -154,6 +158,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirth(?\DateTimeInterface $birth): static
     {
         $this->birth = $birth;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool 
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static 
+    {
+        $this->active = $active;
 
         return $this;
     }
