@@ -13,26 +13,19 @@ class ConfirmToken
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255)]
     private ?string $token = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $expireAt = null;
 
-    #[ORM\OneToOne(inversedBy: 'confirmToken', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'confirmTokens')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getToken(): ?string
@@ -64,7 +57,7 @@ class ConfirmToken
         return $this->user;
     }
 
-    public function setUser(User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

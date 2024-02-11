@@ -30,7 +30,11 @@ class MailManagerController extends AbstractController
     }
 
     #[Route('/mail/day/send', name: 'app_mail_day_send')]
-    public function sendDayEmail(Request $request, MailerService $mailer, EventRepository $eventRepository): Response
+    public function sendDayEmail(
+        Request $request, 
+        MailerService $mailer, 
+        EventRepository $eventRepository
+        ): Response
     {
         // Convertir le contenu de la requête en tableau PHP
         $data = json_decode($request->getContent(), true);

@@ -8,18 +8,40 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Library\CustomLibrary;
+use App\Entity\User;
+use App\Entity\ConfirmToken;
+use App\Repository\ConfirmTokenRepository;
+use App\Repository\UserRepository;
 
 class MailerService
 {
     private $mailer;
     private $tokenStorage;
+    private $entityManager;
+    private $userRepository;
+    private $confirmTokenRepository;
+    private $router;
 
 
-    public function __construct(TokenStorageInterface $tokenStorage, MailerInterface $mailer)
+    public function __construct(
+        TokenStorageInterface $tokenStorage, 
+        MailerInterface $mailer, 
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        ConfirmTokenRepository $confirmTokenRepository,
+        RouterInterface $router,
+        )
     {
         $this->tokenStorage = $tokenStorage;
         $this->mailer = $mailer;
+        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
+        $this->confirmTokenRepository = $confirmTokenRepository;
+        $this->router = $router;
     }
 
     // TODO changer nom GenerateAndSendEventsEmail
@@ -84,12 +106,32 @@ class MailerService
     public function GenerateAnsSendConfirmSigninEmail($user): string {
         $email = $user->getEmail();
         $pseudo = $user->getPseudo();
+        $userId = $user->getId();
         $subject = 'Bienvenue ' . $pseudo;
-        // calculer un token de confirmation pour l'utilisateur $user
-        
+        // générer un token de 32 caractéres de confirmation pour l'utilisateur $user
+
+
+        do {
+            $token = bin2hex(random_bytes(16));
+            $confirmTokenDB = $this->confirmTokenRepository->findOneBy(['token' => $token]);
+        } while ($confirmTokenDB !== null);
+
+        //$token = bin2hex(random_bytes(16));
+        $confirmToken = new ConfirmToken();
+        $confirmToken->setUser($user);
+        $confirmToken->setToken($token);
+        $confirmToken->setExpireAt(new \DateTimeImmutable('+1 day'));
+        //$user->setConfirmToken($confirmToken);
+        $user->addConfirmToken($confirmToken);
+        //dd($confirmToken);
         // stocker le token dans la base de données
+        $this->entityManager->persist($confirmToken);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
         // ajouter token au context du template de l'email
-        /*
+        $url = $this->router->generate('app_confirm_signin', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $email = (new TemplatedEmail())
             ->from(new Address('inbox.test.jac@free.fr'))
             ->to($email)
@@ -97,6 +139,7 @@ class MailerService
             ->htmlTemplate('mail/send_confirm_signin.html.twig')
             ->context([
                 'pseudo' => $pseudo,
+                'url' => $url,
         ]);
         try {
             $this->mailer->send($email);
@@ -104,7 +147,7 @@ class MailerService
         } 
         catch (TransportExceptionInterface $e) {
             return ('Email ko : ' . $e->getMessage());
-        }*/
+        }
         return ('Email ok');
     }
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes Animaux • Confirmation{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if isActivated %}
+        <h2 class="home-title-top text-white">Confirmation</h2>
+        <p>Bonjour {{ pseudo }}<br/>Votre compte est activé, vous pouvez vous connecter</p>
+        <a class="btn-form" href="{{ path('app_login') }}">Connexion</a>
+    {% else %}
+        <h2 class="home-title-top text-white">Erreur</h2>
+        <p>Une erreur est survenue : {{ errorText }}<br />Appuyez sur Nouvel Email</p>
+        <a class="btn-form" href="{{ path('app_login') }}">Nouvel Email</a>
+    {% endif %}
+    
+{% endblock %}

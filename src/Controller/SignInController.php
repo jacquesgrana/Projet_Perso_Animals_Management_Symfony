@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\ConfirmToken;
 use App\Form\UserTypeSignin;
 use App\Repository\UserRepository;
+use App\Repository\ConfirmTokenRepository;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SignInController extends AbstractController
 {
+    
     #[Route('/signin', name: 'app_signin', methods: ['GET', 'POST'])]
     public function signin(
         Request $request, 
@@ -57,6 +60,8 @@ class SignInController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 // appeler fonction du service de mail pour envoyer un email de confirmation qui contient le lien de confirmation du compte
+
+                // commenter tant entité ConfirmToken n'est pas reecrite
                 $result = $mailerService->GenerateAnsSendConfirmSigninEmail($user);
                 if ($result === 'Email ok') {
                     $this->addFlash('success', 'Email envoyé');
@@ -76,6 +81,73 @@ class SignInController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+    #[Route('/signin/confirm', name: 'app_confirm_signin', methods: ['GET', 'POST'])]
+    public function confirm(
+        Request $request,
+        ConfirmTokenRepository $confirmTokenRepository,
+        EntityManagerInterface $entityManager,
+    ): Response
+    {
+        // récupérer le token dans l'url
+        $token = $request->query->get('token');
+        // récupérer le ConfirmToken dans la base de données à partir du token
+        //dd($confirmTokenRepository);
+        //findByToken
+        //$confirmToken = $confirmTokenRepository->findByToken($token);
+        $isActivated = false;
+        $errorText = '';
+        $pseudo = '';
+        $confirmToken = $confirmTokenRepository->findOneBy(['token' => $token]);
+        //dd($confirmToken);
+        // si ConfirmToken n'existe pas, renvoyer une erreur
+        if ($confirmToken === null) {
+            //throw new \Exception('ConfirmToken does not exist');
+
+            $errorText = 'Token introuvable.';
+            $isActivated = false;
+
+        }
+        // sinon si le ConfirmToken est expire, renvoyer une erreur
+        else if ($confirmToken->getExpireAt() < new \DateTimeImmutable()) {
+            //throw new \Exception('ConfirmToken expired');
+            $errorText = 'Token expiré.';
+            $isActivated = false;
+        }
+
+        else {
+            $isActivated = true;
+            $user = $confirmToken->getUser();
+            $pseudo = $user->getPseudo();
+            $user->setActive(true);
+            $user->removeConfirmToken($confirmToken);
+            $entityManager->persist($user);
+            $entityManager->remove($confirmToken);
+            $entityManager->flush();
+        }
+
+        
+        
+        
+        // sinon
+
+            // récupérer l'utilisateur correspondant au ConfirmToken
+            // récupérer le pseudo de l'utilisateur
+            // set user active
+            // set user confirmToken a null
+            // supprimer le ConfirmToken de la base de données
+            // persist user et flush
+        
+
+        return $this->render('signin/confirm_signin.html.twig', [
+            'controller_name' => 'SignInController',
+            'pseudo' => $pseudo,
+            'isActivated' => $isActivated,
+            'errorText' => $errorText
+        ]);
+    }
+
 }
 
 ?>

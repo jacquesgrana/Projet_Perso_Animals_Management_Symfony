@@ -50,14 +50,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Event::class)]
     private Collection $events;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ConfirmToken::class, orphanRemoval: true)]
+    private Collection $confirmTokens;
+
+    /*
     #[ORM\Column(nullable: true)]
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?ConfirmToken $confirmToken = null;
-
+*/
     public function __construct()
     {
         $this->animals = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->confirmTokens = new ArrayCollection();
     }
 
     public function getRoles(): array
@@ -235,19 +240,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /*
+
     public function getConfirmToken(): ?ConfirmToken
     {
         return $this->confirmToken;
     }
 
-    public function setConfirmToken(ConfirmToken $confirmToken): static
+    public function setConfirmToken(?ConfirmToken $confirmToken): static
     {
         // set the owning side of the relation if necessary
-        if ($confirmToken->getUser() !== $this) {
+        if($confirmToken !== null) {
+            if ($confirmToken instanceof ConfirmToken && $confirmToken->getUser() !== $this) {
+                $confirmToken->setUser($this);
+            }
+        }
+        
+    
+        $this->confirmToken = $confirmToken;
+    
+        return $this;
+    }
+    */
+
+    /**
+     * @return Collection<int, ConfirmToken>
+     */
+    public function getConfirmTokens(): Collection
+    {
+        return $this->confirmTokens;
+    }
+
+    public function addConfirmToken(ConfirmToken $confirmToken): static
+    {
+        if (!$this->confirmTokens->contains($confirmToken)) {
+            $this->confirmTokens->add($confirmToken);
             $confirmToken->setUser($this);
         }
 
-        $this->confirmToken = $confirmToken;
+        return $this;
+    }
+
+    public function removeConfirmToken(ConfirmToken $confirmToken): static
+    {
+        if ($this->confirmTokens->removeElement($confirmToken)) {
+            // set the owning side to null (unless already changed)
+            if ($confirmToken->getUser() === $this) {
+                $confirmToken->setUser(null);
+            }
+        }
 
         return $this;
     }

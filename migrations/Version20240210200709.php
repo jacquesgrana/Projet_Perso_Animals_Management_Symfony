@@ -20,16 +20,16 @@ final class Version20240210200709 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE confirm_token (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, token VARCHAR(255) NOT NULL, expire_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', UNIQUE INDEX UNIQ_A8C9AA515F37A13B (token), UNIQUE INDEX UNIQ_A8C9AA51A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE confirm_token ADD CONSTRAINT FK_A8C9AA51A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
-        $this->addSql('ALTER TABLE user ADD confirm_token VARCHAR(255) DEFAULT NULL');
+        //$this->addSql('CREATE TABLE confirm_token (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, token VARCHAR(255) NOT NULL, expire_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', UNIQUE INDEX UNIQ_A8C9AA515F37A13B (token), UNIQUE INDEX UNIQ_A8C9AA51A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        //$this->addSql('ALTER TABLE confirm_token ADD CONSTRAINT FK_A8C9AA51A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
+        //$this->addSql('ALTER TABLE user ADD confirm_token VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE confirm_token DROP FOREIGN KEY FK_A8C9AA51A76ED395');
-        $this->addSql('DROP TABLE confirm_token');
-        $this->addSql('ALTER TABLE `user` DROP confirm_token');
+        //$this->addSql('ALTER TABLE confirm_token DROP FOREIGN KEY FK_A8C9AA51A76ED395');
+        //$this->addSql('DROP TABLE confirm_token');
+        //$this->addSql('ALTER TABLE `user` DROP confirm_token');
     }
 }

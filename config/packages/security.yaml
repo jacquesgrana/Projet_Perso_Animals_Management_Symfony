@@ -38,6 +38,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/login', roles: PUBLIC_ACCESS }
         - { path: '^/signin', roles: PUBLIC_ACCESS }
+        - { path: '^/signin/confirm', roles: PUBLIC_ACCESS }
         - { path: '^/admin', roles: ROLE_ADMIN } 
         - { path: '^/home', roles: ROLE_USER } 
         - { path: '^/animal', roles: ROLE_USER } 
