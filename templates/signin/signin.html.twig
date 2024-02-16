@@ -8,6 +8,11 @@
             {{ message }}
         </div>
     {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     <h2 class="home-title-top text-white">Inscrivez-vous</h2>
 

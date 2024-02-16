@@ -171,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getActive(): ?bool 
+    public function isActive(): ?bool 
     {
         return $this->active;
     }
@@ -239,29 +239,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /*
-
-    public function getConfirmToken(): ?ConfirmToken
-    {
-        return $this->confirmToken;
-    }
-
-    public function setConfirmToken(?ConfirmToken $confirmToken): static
-    {
-        // set the owning side of the relation if necessary
-        if($confirmToken !== null) {
-            if ($confirmToken instanceof ConfirmToken && $confirmToken->getUser() !== $this) {
-                $confirmToken->setUser($this);
-            }
-        }
-        
-    
-        $this->confirmToken = $confirmToken;
-    
-        return $this;
-    }
-    */
 
     /**
      * @return Collection<int, ConfirmToken>

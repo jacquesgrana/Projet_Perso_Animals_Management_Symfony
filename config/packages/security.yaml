@@ -59,6 +59,7 @@ security:
         - { path: '^/mail/day/send', roles: ROLE_USER }
         - { path: '^/mail/week/send', roles: ROLE_USER }
         - { path: '^/mail/month/send', roles: ROLE_USER }
+        - { path: '^/user/account', roles: ROLE_USER }
 
 when@test:
     security:

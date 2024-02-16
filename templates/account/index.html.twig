@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes Animaux • Gérer mon compte{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="wrapper">
+    <h2 class="home-title-top text-white">Gérer mon compte</h2>
+
+    <table class="table-small">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td class="text-orange">{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td class="text-orange">{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td class="text-orange">{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td class="text-orange">{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td class="text-orange">{{ user.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td class="text-orange">{{ user.birth ? user.birth|frenchDateDay : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn-form" href="{{ path('app_account_edit', {'id': user.id}) }}">Modifier les informations</a>
+    <a class="btn-form" href="{{ path('app_account') }}">Modifier l'email</a>
+    <a class="btn-form" href="{{ path('app_account') }}">Modifier le mot de passe</a>
+    {{ include('account/_delete_form.html.twig') }}
+    <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+</div>
+{% endblock %}

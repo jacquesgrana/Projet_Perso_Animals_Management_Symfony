@@ -22,7 +22,12 @@
         <header class="header">
         <h1 class="header-title">🐱🐶 Gestion de mes Animaux 🐦🐟</h1>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <p class="text-white">Vous êtes connecté comme : <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : <span class="text-orange">{{ app.user.pseudo }}</span> • <span><a href="{{ path('app_logout') }}"><span>Déconnexion</span></a></span></p>
+            <p class="text-white">Vous êtes connecté comme : 
+            <span class="text-orange">{{ app.user.userIdentifier }}</span> • pseudo : 
+            <span class="text-orange">{{ app.user.pseudo }}</span> • 
+            <span><a href="{{ path('app_account') }}"><span>Mon compte</span></a></span> • 
+            <span><a href="{{ path('app_logout') }}"><span>Déconnexion</span></a></span>
+            </p>
         {% else %}
             <p class="text-white">Vous n'êtes pas connecté • 
             <span><a href="{{ path('app_login') }}"><span class="text-orange">Connexion</span></a></span> • 

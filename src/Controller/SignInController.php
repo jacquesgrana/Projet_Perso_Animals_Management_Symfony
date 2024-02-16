@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\ConfirmToken;
-use App\Form\UserTypeSignin;
+use App\Form\UserSigninType;
 use App\Repository\UserRepository;
 use App\Repository\ConfirmTokenRepository;
 use App\Service\MailerService;
@@ -26,7 +26,7 @@ class SignInController extends AbstractController
         ): Response
     {
         $user = new User();
-        $form = $this->createForm(UserTypeSignin::class, $user);
+        $form = $this->createForm(UserSigninType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +64,7 @@ class SignInController extends AbstractController
                 // commenter tant entité ConfirmToken n'est pas reecrite
                 $result = $mailerService->GenerateAnsSendConfirmSigninEmail($user);
                 if ($result === 'Email ok') {
-                    $this->addFlash('success', 'Email envoyé');
+                    $this->addFlash('success', 'Email de confirmation envoyé');
                 }
                 else {
                     $this->addFlash('error', $result);
@@ -90,61 +90,48 @@ class SignInController extends AbstractController
         EntityManagerInterface $entityManager,
     ): Response
     {
-        // récupérer le token dans l'url
-        $token = $request->query->get('token');
-        // récupérer le ConfirmToken dans la base de données à partir du token
-        //dd($confirmTokenRepository);
-        //findByToken
-        //$confirmToken = $confirmTokenRepository->findByToken($token);
+        //$userId = 0;
         $isActivated = false;
         $errorText = '';
         $pseudo = '';
+        //$urlNewConfirmMail = '';
+        $token = $request->query->get('token');
         $confirmToken = $confirmTokenRepository->findOneBy(['token' => $token]);
-        //dd($confirmToken);
-        // si ConfirmToken n'existe pas, renvoyer une erreur
-        if ($confirmToken === null) {
-            //throw new \Exception('ConfirmToken does not exist');
 
+        if ($confirmToken === null) {
             $errorText = 'Token introuvable.';
             $isActivated = false;
-
+            //$userId = -1;
         }
-        // sinon si le ConfirmToken est expire, renvoyer une erreur
         else if ($confirmToken->getExpireAt() < new \DateTimeImmutable()) {
-            //throw new \Exception('ConfirmToken expired');
             $errorText = 'Token expiré.';
             $isActivated = false;
+            $entityManager->remove($confirmToken);
+            $entityManager->flush();
+            //$userId = $confirmToken->getUser()->getId();
         }
-
         else {
             $isActivated = true;
             $user = $confirmToken->getUser();
             $pseudo = $user->getPseudo();
             $user->setActive(true);
-            $user->removeConfirmToken($confirmToken);
+            //$userId = $user->getId();
+            //$user->removeConfirmToken($confirmToken);
+            foreach ($user->getConfirmTokens() as $ct) {
+                $user->removeConfirmToken($ct);
+                $entityManager->remove($ct);
+            }
             $entityManager->persist($user);
-            $entityManager->remove($confirmToken);
+            //$entityManager->remove($confirmToken);
             $entityManager->flush();
-        }
-
-        
-        
-        
-        // sinon
-
-            // récupérer l'utilisateur correspondant au ConfirmToken
-            // récupérer le pseudo de l'utilisateur
-            // set user active
-            // set user confirmToken a null
-            // supprimer le ConfirmToken de la base de données
-            // persist user et flush
-        
+        }       
 
         return $this->render('signin/confirm_signin.html.twig', [
             'controller_name' => 'SignInController',
             'pseudo' => $pseudo,
             'isActivated' => $isActivated,
-            'errorText' => $errorText
+            'errorText' => $errorText,
+            //'userId' => $userId
         ]);
     }
 

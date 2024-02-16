@@ -41,9 +41,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         if (!$user) {
             throw new CustomUserMessageAuthenticationException('User non trouvé.');
         }
-        dd($user->getActive());
+        dd($user->isActive());
         // Vérifiez si l'utilisateur est actif
-        if (!$user->getActive()) {
+        if (!$user->isActive()) {
             throw new CustomUserMessageAuthenticationException('Compte inactif.');
         }
 

@@ -151,6 +151,8 @@ body {
     text-decoration: none;
     font-size: small;
     border: 1px solid rgb(2, 22, 77);
+    width: 180px;
+    text-align: center;
 }
 
 .btn-form:hover,
@@ -185,6 +187,28 @@ body {
     background-color: rgb(20, 58, 160);
 }
 
+.table-small {
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    color: rgb(189, 202, 236);
+    th, td {
+        padding: 10px;
+        text-align: left;
+        font-size: small;
+        border-bottom: 1px solid rgb(207, 179, 126);
+     }
+     
+     tr:nth-child(even) {
+        background-color: rgba(2, 22, 77, 0.6);
+     }
+     
+     tr:nth-child(odd) {
+        background-color:rgb(2, 22, 77);
+     }    
+ }
+
 .table {
     width: 100%;
     max-width: 1200px;
@@ -200,7 +224,7 @@ body {
      }
      
      tr:nth-child(even) {
-        background-color: rgba(2, 22, 77, 0.8);
+        background-color: rgba(2, 22, 77, 0.6);
      }
      
      tr:nth-child(odd) {

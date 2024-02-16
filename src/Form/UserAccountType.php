@@ -7,28 +7,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+//use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class UserTypeSignin extends AbstractType
+class UserAccountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('email', null, [
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Email',
-                'constraints' => [
-                    new \Symfony\Component\Validator\Constraints\Email()
-                ],
-                'required' => true
-                ])
-
-            ->add('password', null, [
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Mot de passe',
-                'required' => true
-            ])
+        $builder             
             ->add('firstname', null, [
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Prénom',
@@ -59,3 +46,22 @@ class UserTypeSignin extends AbstractType
         ]);
     }
 }
+
+/*
+
+            ->add('email', null, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Email',
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\Email()
+                ],
+                'required' => true
+                ])
+            ->add('password', PasswordType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Mot de passe',
+                'required' => true,
+                'empty_data' => '', // Ceci est optionnel car la valeur par défaut est déjà une chaîne vide
+            ])   
+
+*/
