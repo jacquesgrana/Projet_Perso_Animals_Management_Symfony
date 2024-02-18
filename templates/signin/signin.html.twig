@@ -3,18 +3,23 @@
 {% block title %}Gestion de mes Animaux • Inscription{% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
-
     <h2 class="home-title-top text-white">Inscrivez-vous</h2>
-
     {{ include('signin/_form_signin.html.twig') }}
+
+    <script>
+        //document.addEventListener("DOMContentLoaded", (e) => {
+            //console.log('load ok');
+            var btnSeePwd = document.getElementById('btn-see-password');
+            if (btnSeePwd) {
+                //console.log('1e if');
+                btnSeePwd.addEventListener('click', (e) => {
+                    const input = document.getElementById('user_signin_password');
+                    if (input) {
+                        //console.log('2e if');
+                        input.type = input.type === "password" ? "text" : "password";
+                    }
+                });
+            }
+        //});
+    </script>
 {% endblock %}

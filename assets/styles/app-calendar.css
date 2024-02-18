@@ -96,7 +96,7 @@ body {
 }
 
 .btn-form {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
     background-color: rgb(2, 22, 77);
@@ -105,6 +105,8 @@ body {
     text-decoration: none;
     font-size: small;
     border: 1px solid rgb(2, 22, 77);
+    width: 180px;
+    text-align: center;
 }
 
 .btn-form:hover {

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de mes Animaux • Modifier mon email{% endblock %}
+
+{% block body %}
+    <h2 class="home-title-top text-white">Modifier mon email</h2>
+
+    <form id="password-form" method="post" action="{{ path('app_account_change_email') }}" onsubmit="return checkSubmit(event)">
+        <div class="form-group">
+            <label class="login-label" for="email">Email</label>
+            <input class="login-input" type="email" id="email" name="email" value="{{ email }}" required />
+        </div>
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('change-email') }}">
+        <div class="form-group-button">
+            <button class="btn-form" type="submit">Mettre à jour</button>
+        </div>
+    </form>
+    <a class="btn-form" href="{{ path('app_account') }}">Retour à mon compte</a>
+    <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
+
+    <script>
+    function checkSubmit(event) {
+        const email = document.getElementById('email').value;
+        // déterminer si l'email est valide par regex
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    }
+    </script>
+{% endblock %}

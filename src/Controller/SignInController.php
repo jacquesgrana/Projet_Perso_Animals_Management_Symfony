@@ -13,7 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Validation;
 class SignInController extends AbstractController
 {
     
@@ -33,11 +34,13 @@ class SignInController extends AbstractController
             $newUser = $form->getData();
             $email = $newUser->getEmail();
             $pseudo = $newUser->getPseudo();
+            $validator = Validation::createValidator();
+            $violations = $validator->validate($email, new Email());
 
             $isUniqueEmail = $userRepository->findOneByEmail($email) === null;
             $isUniquePseudo = $userRepository->findOneByPseudo($pseudo) === null;
-
-            if (!$isUniqueEmail || !$isUniquePseudo) {
+            $isValidEmail = 0 === count($violations);
+            if (!$isUniqueEmail || !$isUniquePseudo || !$isValidEmail) {
                 if(!$isUniqueEmail) {
                     //$form->get('email')->addError(new \Symfony\Component\Form\FormError('Email non unique'));
                     $this->addFlash('error', 'Email non unique');
@@ -45,6 +48,10 @@ class SignInController extends AbstractController
                 if(!$isUniquePseudo) {
                     //$form->get('pseudo')->addError(new \Symfony\Component\Form\FormError('Pseudo non unique'));
                     $this->addFlash('error', 'Pseudo non unique');
+                }
+                if(!$isValidEmail) {
+                    //$form->get('email')->addError(new \Symfony\Component\Form\FormError('Email invalide'));
+                    $this->addFlash('error', 'Email invalide');
                 }
                 return $this->redirectToRoute('app_signin', [], Response::HTTP_SEE_OTHER);
             }

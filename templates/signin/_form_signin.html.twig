@@ -1,23 +1,24 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {# {{ form_widget(form) }} #}
+{{ form_label(form.email) }}
+{{ form_widget(form.email) }}
 
-    {#
-    {% if form.email.vars.errors|length >  0 %}
-        <ul class="text-danger">
-            {% for error in form.email.vars.errors %}
-                <li>{{ error.message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{{ form_label(form.password) }}
+<div class="form-group-password">
+{{ form_widget(form.password) }}
+<a id="btn-see-password" class="btn-see-password">👁</a>
+</div>
+{{ form_label(form.firstname) }}
+{{ form_widget(form.firstname) }}
 
-    {% if form.pseudo.vars.errors|length >  0 %}
-        <ul class="text-danger">
-            {% for error in form.pseudo.vars.errors %}
-                <li>{{ error.message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    #}
+{{ form_label(form.lastname) }}
+{{ form_widget(form.lastname) }}
+
+{{ form_label(form.pseudo) }}
+{{ form_widget(form.pseudo) }}
+
+{{ form_label(form.birth) }}
+{{ form_widget(form.birth) }}
 
     <div class="centered">
         <button class="btn-form">{{ button_label|default('Enregistrer') }}</button>

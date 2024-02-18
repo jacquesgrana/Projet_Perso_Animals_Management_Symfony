@@ -40,8 +40,8 @@
         </tbody>
     </table>
     <a class="btn-form" href="{{ path('app_account_edit', {'id': user.id}) }}">Modifier les informations</a>
-    <a class="btn-form" href="{{ path('app_account') }}">Modifier l'email</a>
-    <a class="btn-form" href="{{ path('app_account') }}">Modifier le mot de passe</a>
+    <a class="btn-form" href="{{ path('app_account_edit_email', {'email': user.email}) }}">Modifier l'email</a>
+    <a class="btn-form" href="{{ path('app_account_edit_password') }}">Modifier le mot de passe</a>
     {{ include('account/_delete_form.html.twig') }}
     <a class="btn-form" href="{{ path('app_home') }}">Retour à l'accueil</a>
 </div>

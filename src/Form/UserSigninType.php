@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -23,9 +26,10 @@ class UserSigninType extends AbstractType
                 ],
                 'required' => true
                 ])
-
-            ->add('password', null, [
-                'attr' => ['class' => 'form-control'],
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'class' => 'login-input',
+                ],
                 'label' => 'Mot de passe',
                 'required' => true
             ])

@@ -134,10 +134,15 @@ body {
     margin-bottom: 20px;
     border-radius: 5px;
     padding: 5px;
+    background-color: rgb(2, 22, 77);
+    color: white;
+    border: 1px solid white;
+    height: 30px;
 }
 
 .login-label {
     margin-bottom: 5px;
+    color: orange;
 }
 
 .btn-form,
@@ -155,6 +160,23 @@ body {
     text-align: center;
 }
 
+
+.btn-form-small {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(2, 22, 77);
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: small;
+    border: 1px solid rgb(2, 22, 77);
+    width: 40px;
+    text-align: center;
+}
+
+.btn-see-password:hover,
+.btn-form-small:hover,
 .btn-form:hover,
 .login-btn:hover {
     cursor: pointer;
@@ -162,6 +184,53 @@ body {
     border: 1px solid orange;
     background-color: rgb(20, 58, 160);
 }
+
+.btn-see-password {
+    background-color: rgb(2, 22, 77);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: small;
+    border: 1px solid rgb(255, 255, 255);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 0.8em;
+}
+
+.btn-see-password-signin {
+    background-color: rgb(2, 22, 77);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: small;
+    border: 1px solid rgb(255, 255, 255);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group-password {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.form-group-button {
+    display: flex;
+    justify-content: center;
+}
+
+
+
 .link-event-list,
 .link-animal-list {
     text-decoration: none;
@@ -301,6 +370,38 @@ body {
     border-radius: 8px;
     display: inline-block;
     margin-bottom: -2px;
+}
+
+/* messages flash **************************************************** */
+
+.alert-success {
+    background-color: rgb(14, 109, 27);
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.alert-danger {
+    background-color: rgb(141, 12, 12);
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.alert-warning {
+    background-color: rgb(153, 87, 11);
+    color: rgb(189, 202, 236);
+    border: 1px solid rgb(189, 202, 236);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* page mail ********************************************************** */
