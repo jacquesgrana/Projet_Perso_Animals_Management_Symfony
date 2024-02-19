@@ -38,6 +38,11 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/login', roles: PUBLIC_ACCESS }
         - { path: '^/signin', roles: PUBLIC_ACCESS }
+        - { path: '/user/send-email-form/reset/password', roles: PUBLIC_ACCESS }
+        - { path: '/user/send-email-action/reset/password', roles: PUBLIC_ACCESS }
+        - { path: '/user/send-email-confirm/reset/password', roles: PUBLIC_ACCESS }
+        - { path: '/user/reset/password', roles: PUBLIC_ACCESS }
+        - { path: '/user/reset/password/action', roles: PUBLIC_ACCESS }
         - { path: '^/signin/confirm', roles: PUBLIC_ACCESS }
         - { path: '^/admin', roles: ROLE_ADMIN } 
         - { path: '^/home', roles: ROLE_USER } 
@@ -60,6 +65,7 @@ security:
         - { path: '^/mail/week/send', roles: ROLE_USER }
         - { path: '^/mail/month/send', roles: ROLE_USER }
         - { path: '^/user/account', roles: ROLE_USER }
+
 
 when@test:
     security:

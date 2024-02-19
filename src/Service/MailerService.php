@@ -104,35 +104,31 @@ class MailerService
     }
 
     public function GenerateAnsSendConfirmSigninEmail($user): string {
+
+        $routeName = 'app_confirm_signin'; 
+
+        /*
         $email = $user->getEmail();
         $pseudo = $user->getPseudo();
-        $userId = $user->getId();
+        //$userId = $user->getId();
         $subject = 'Bienvenue ' . $pseudo;
+
         // générer un token de 32 caractéres de confirmation pour l'utilisateur $user
+        
+        $token = CustomLibrary::generateToken($this->confirmTokenRepository);
 
-
-        do {
-            $token = bin2hex(random_bytes(16));
-            $confirmTokenDB = $this->confirmTokenRepository->findOneBy(['token' => $token]);
-        } while ($confirmTokenDB !== null);
-
-        //$token = bin2hex(random_bytes(16));
         $confirmToken = new ConfirmToken();
         $confirmToken->setUser($user);
         $confirmToken->setToken($token);
         $confirmToken->setExpireAt(new \DateTimeImmutable('+1 day'));
-        //$user->setConfirmToken($confirmToken);
         $user->addConfirmToken($confirmToken);
-        //dd($confirmToken);
-        // stocker le token dans la base de données
         $this->entityManager->persist($confirmToken);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        // ajouter token au context du template de l'email
-        $url = $this->router->generate('app_confirm_signin', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate($routeName, ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $email = (new TemplatedEmail())
+        $emailToSend = (new TemplatedEmail())
             ->from(new Address('inbox.test.jac@free.fr'))
             ->to($email)
             ->subject($subject)
@@ -142,13 +138,68 @@ class MailerService
                 'url' => $url,
         ]);
         try {
-            $this->mailer->send($email);
+            $this->mailer->send($emailToSend);
             return ('Email ok');
         } 
         catch (TransportExceptionInterface $e) {
             return ('Email ko : ' . $e->getMessage());
         }
-        return ('Email ok');
+        */
+        $result = $this->generateAndSendMailWithLink($user, $routeName);
+        return $result;
+    }
+
+    public function generateAndSendResetPasswordEmail($user): string {
+        $routeName = 'app_reset_password';
+        return $this->generateAndSendMailWithLink($user, $routeName);
+        //return ('Email ok');
+    }
+
+    public function generateAndSendMailWithLink($user, $routeName): string {
+        
+        $email = $user->getEmail();
+        $pseudo = $user->getPseudo();
+        //$userId = $user->getId();
+        $subject = 'Bienvenue ' . $pseudo;
+
+        // générer un token de 32 caractéres de confirmation pour l'utilisateur $user
+        /*
+        do {
+            $token = bin2hex(random_bytes(16));
+            $confirmTokenDB = $this->confirmTokenRepository->findOneBy(['token' => $token]);
+        } while ($confirmTokenDB !== null);
+        */
+        $token = CustomLibrary::generateToken($this->confirmTokenRepository);
+        //dd($token);
+        $confirmToken = new ConfirmToken();
+        $confirmToken->setUser($user);
+        $confirmToken->setToken($token);
+        $confirmToken->setExpireAt(new \DateTimeImmutable('+1 day'));
+        $user->addConfirmToken($confirmToken);
+        $this->entityManager->persist($confirmToken);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        // ajouter url au context du template de l'email
+        $url = $this->router->generate($routeName, ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        //dd($url);
+        $emailToSend = (new TemplatedEmail())
+            ->from(new Address('inbox.test.jac@free.fr'))
+            ->to($email)
+            ->subject($subject)
+            ->htmlTemplate('mail/send_confirm_signin.html.twig')
+            ->context([
+                'pseudo' => $pseudo,
+                'url' => $url,
+        ]);
+        try {
+            $this->mailer->send($emailToSend);
+            return 'Email ok';
+        } 
+        catch (TransportExceptionInterface $e) {
+            return 'Email ko : ' . $e->getMessage();
+        }
+        return 'Email ok';
     }
 }
 ?>

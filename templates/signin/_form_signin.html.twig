@@ -1,26 +1,26 @@
 {{ form_start(form) }}
-    {# {{ form_widget(form) }} #}
-{{ form_label(form.email) }}
+{{ form_label(form.email, null, {'label_attr': {'class': 'text-orange'}}) }}
 {{ form_widget(form.email) }}
 
-{{ form_label(form.password) }}
+{{ form_label(form.password, null, {'label_attr': {'class': 'text-orange'}}) }}
 <div class="form-group-password">
-{{ form_widget(form.password) }}
-<a id="btn-see-password" class="btn-see-password">👁</a>
+    {{ form_widget(form.password) }}
+    <a id="btn-see-password" class="btn-see-password">👁</a>
 </div>
-{{ form_label(form.firstname) }}
+
+{{ form_label(form.firstname, null, {'label_attr': {'class': 'text-orange'}}) }}
 {{ form_widget(form.firstname) }}
 
-{{ form_label(form.lastname) }}
+{{ form_label(form.lastname, null, {'label_attr': {'class': 'text-orange'}}) }}
 {{ form_widget(form.lastname) }}
 
-{{ form_label(form.pseudo) }}
+{{ form_label(form.pseudo, null, {'label_attr': {'class': 'text-orange'}}) }}
 {{ form_widget(form.pseudo) }}
 
-{{ form_label(form.birth) }}
+{{ form_label(form.birth, null, {'label_attr': {'class': 'text-orange'}}) }}
 {{ form_widget(form.birth) }}
 
-    <div class="centered">
-        <button class="btn-form">{{ button_label|default('Enregistrer') }}</button>
-    </div>
+<div class="centered">
+    <button class="btn-form">{{ button_label|default('Enregistrer') }}</button>
+</div>
 {{ form_end(form) }}

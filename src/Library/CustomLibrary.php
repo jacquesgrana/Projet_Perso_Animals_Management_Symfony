@@ -62,5 +62,14 @@ class CustomLibrary {
         }
         return $typeName;
     }
+
+    public static function generateToken($confirmTokenRepository): string {
+        $token = '';
+        do {
+            $token = bin2hex(random_bytes(16));
+            $confirmTokenDB = $confirmTokenRepository->findOneBy(['token' => $token]);
+        } while ($confirmTokenDB !== null);
+        return $token;
+    }
 }
 ?>
